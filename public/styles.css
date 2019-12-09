@@ -14,11 +14,13 @@
   font: inherit;
   text-decoration: none;
   box-sizing: border-box;
+  color: inherit;
 }
 
 /*=== HOME ===*/
 /*==header==*/
-body, html{
+body,
+html {
   font-family: 'Roboto', sans-serif;
   color: #111111;
 }
@@ -39,6 +41,11 @@ body, html{
   display: flex;
   align-items: center;
 
+  height: 80px;
+  margin-bottom: 50px;
+}
+
+.header > div{
   width: 940px;
   margin: 0 auto;
 }
@@ -63,6 +70,10 @@ body, html{
 }
 
 .header-nav a:hover {
+  font-weight: bold;
+}
+
+.active {
   font-weight: bold;
 }
 
@@ -133,7 +144,6 @@ body, html{
 .recipe {
   width: 300px;
   margin-bottom: 10px;
-  cursor: pointer;
 }
 
 .recipe-img img {
@@ -225,11 +235,16 @@ body, html{
 
 .recipeDetail-img img {
   border-radius: 15px;
+  height: 100%;
 }
 
 .recipeDetail-img {
   width: 100%;
-  padding-bottom: 50px;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 15px;
+  margin-bottom: 50px;
+text-align: center;
 }
 
 .recipeDetail-titleWrapper {
@@ -283,16 +298,173 @@ body, html{
   align-items: center;
 }
 
-.toggle a{
+.toggle a {
   padding-bottom: 20px;
   padding-left: 8px;
   color: #999;
   line-height: 19px;
   font-weight: bold;
   font-family: inherit;
+  cursor: pointer;
 }
 
 .hide {
   visibility: hidden;
   max-height: 0px;
 }
+
+/*===ADMIN INDEX===*/
+.header.admin-header {
+background-color: #111;
+color: white;
+}
+
+.recipe-manager-title {
+  width: 940px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.recipe-manager-title h3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.visualization-button {
+  text-align: left;
+  background-color: #555;
+  color: var(--color-pink);
+  font-weight: bold;
+  display: inline-block;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.visualization-button:hover {
+  color: #555;
+  background-color: var(--color-pink);
+  transition: color 200ms ease-in;
+}
+
+/*===ADMIN SHOW===*/
+
+.recipeDetail-wrapper header {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.recipeDetail-wrapper header h3 {
+  font-weight: bold;
+  color: #111;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.recipeDetail-wrapper header a {
+  font-weight: bold;
+  color: white;
+  font-size: 16px;
+  padding: 9px 20px;
+  background-color: #6558C3;
+  border-radius: 4px;
+  right: 0px;
+}
+
+.admin-nav-button.edit {
+  color: #111;
+  background-color: green;
+}
+
+.admin-nav-button.delete {
+  color: #111;
+  background-color: red;
+}
+
+/*===ADMIN EDIT===*/
+
+.edit-wrapper {
+  width: 940px;
+  margin: 0 auto;
+}
+
+.edit-wrapper header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.edit-wrapper h3 {
+  font-weight: bold;
+  color: #111;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.edit-wrapper header a,
+.edit-wrapper header button {
+  font-weight: bold;
+  color: white;
+  font-size: 16px;
+  padding: 9px 20px;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.delete-button {
+  background-color: #DC4747;
+}
+
+.save-button {
+  background-color: green;
+}
+
+.back-button {
+  background-color: #6558C3;
+}
+
+
+.item {
+  margin-top: 30px;
+}
+
+.item div:first-child {
+  font-weight: bold;
+  font-size: 16px;
+  color: #111;
+  line-height: 19px;
+  margin-bottom: 10px;
+}
+
+.item input:first-child,
+#information {
+  font-size: 16px;
+  color: #111;
+  line-height: 19px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  height: 50px;
+  width: 100%;
+}
+
+.add-field {
+  color: #6558c3;
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: bold;
+  text-align: right;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+#information {
+  min-height: 257px;
+  margin-bottom: 50px;
+}
+
+/*===CREATE===*/

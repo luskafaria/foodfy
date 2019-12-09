@@ -1,0 +1,54 @@
+{% extends 'admin/layout.njk' %}
+
+{% block content %}
+
+  <div class="edit-wrapper">
+    <header>
+      <h3>Editando receita:
+        {{recipe.title}}</h3>
+      <div class="edit-buttons">
+        <a class='back-button' href="/admin/recipes">Voltar</a>
+        <button type='submit' form='create-form' class='save-button'>Salvar receita</button>
+      </div>
+    </header>
+  </div>
+
+  <form id='create-form' method='POST' action="/admin/recipes" class="edit-wrapper">
+
+    <div class="item">
+      <div>Imagem da receita</div>
+      <div><input type="url" name="image" value='http://' required="required"></div>
+    </div>
+
+    <div class="item">
+      <div>Título da receita</div>
+      <div><input type="text" name="title" required="required"></div>
+    </div>
+
+    <div class="item">
+      <div>Autor da receita</div>
+      <div><input type="text" name="author" required="required"></div>
+    </div>
+
+    <div class="item" id='ingredients'>
+      <div>Ingredientes</div>
+      <div class='ingredient'><input type="text" name="ingredients[]" required="required"></div>
+    </div>
+    <a class='add-field add-ingredient'>Adicionar novo ingrediente</a>
+
+    <div class="item" id='preparation'>
+      <div>Modo de preparo</div>
+      <div class='preparation'><input type="text" name="preparation[]" id="" required="required"></div>
+    </div>
+    <a class='add-field add-preparation'>Adicionar novo passo</a>
+
+    <div class="item">
+      <div>Informações adicionais</div>
+      <div>
+        <textarea type="text" name="information" id="information"></textarea>
+      </div>
+    </div>
+
+  </form>
+
+{% endblock %}

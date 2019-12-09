@@ -1,4 +1,4 @@
-{% extends 'layout.njk' %}
+{% extends 'admin/layout.njk' %}
 
 {% block head %}
 <title>{{recipe.title}}</title>
@@ -7,8 +7,13 @@
 {% block content %}
 
 <div class="recipeDetail-wrapper">
+
+<header>
+<a href="/admin/recipes">Voltar</a>
+<a href="/admin/recipes/{{recipe.id}}/edit">Editar receita</a>
+</header>
   <div class="recipeDetail-img">
-    <img src="{{recipe.image}}" alt="" class="Image de {{recipe.title}}">
+    <img src="{{recipe.image}}" alt="Image de {{recipe.title}}">
   </div>
 
   <div class="recipeDetail-titleWrapper">
@@ -52,7 +57,7 @@
       </div>
 
     </div>
-    
+
     <div class="information">
 
       <div class="toggle">

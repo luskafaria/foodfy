@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/styles.css">
+
+  {% block head %}
+  <title>Foodfy | Receitas inteligentes</title>
+  {% endblock %}
+
+</head>
+
+<body>
+  <div class="page-container">
+    <div class="content-wrapper">
+      <header class="header">
+       <div>
+        <div class="header-logo">
+          <img src="/assets/logo.png" alt="Foodfy logo">
+        </div>
+        <div class="header-nav">
+          <a href='/home'>Home</a>
+          <a href='/about'>Sobre</a>
+          <a href='/recipes'>Receitas</a>
+          <a href='/admin/recipes' style='color: red'>Gerenciar</a>
+        </div>
+       </div>
+      </header>
+      {% block content %}
+
+      {% endblock %}
+
+
+
+    </div>
+    <footer class="footer">
+      <p>Todos os direitos reservados, receitas Foodfy.</p>
+    </footer>
+  </div>
+
+  <script src="/scripts.js"></script>
+</body>
+
+</html

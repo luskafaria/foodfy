@@ -1,10 +1,8 @@
 {
   "recipes": [
     {
-      "id": "1",
       "image": "https://source.unsplash.com/collection/251966",
       "title": "Triplo bacon burger",
-      "author": "Jorge Relato",
       "ingredients": [
         "1 xícara (chá) de leite",
         "1 ovo",
@@ -29,10 +27,8 @@
       "information": "Preaqueça a chapa, frigideira ou grelha por 10 minutos antes de levar os hambúrgueres. Adicione um pouquinho de óleo ou manteiga e não amasse os hambúrgueres! \r\n\r\n Você sabia que a receita que precede o hambúrguer surgiu no século XIII, na Europa? A ideia de moer a carne chegou em Hamburgo no século XVII, onde um açogueiro resolveu também temperá-la. Assim, a receita foi disseminada nos Estados Unidos por alemães da região. Lá surgiu a ideia de colocar o hambúrguer no meio do pão e adicionar outros ingredientes, como queijom tomates e alface."
     },
     {
-      "id": "2",
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/pizza.png",
       "title": "Pizza 4 estações",
-      "author": "Fabiana Melo",
       "ingredients": [
         "1 xícara (chá) de leite",
         "1 ovo",
@@ -57,10 +53,8 @@
       "information": "Pizza de liquidificador é uma receita deliciosa e supersimples de preparar. Feita toda no liquidificador, ela é bem prática para o dia a dia. Aqui no TudoGostoso você também encontra diversas delícias práticas feitas no liquidificador: massa de panqueca, torta de frango de liquidificador, pão de queijo de liquidificador, bolo de banana, bolo de chocolate e muito mais!"
     },
     {
-      "id": 3,
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/asinha.png",
       "title": "Asinhas de frango ao barbecue",
-      "author": "Vania Steroski",
       "ingredients": [
         "12 encontros de asinha de galinha, temperados a gosto",
         "2 colheres de sopa de farinha de trigo",
@@ -75,10 +69,8 @@
       "information": ""
     },
     {
-      "id": 4,
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/lasanha.png",
       "title": "Lasanha mac n' cheese",
-      "author": "Juliano Vieira",
       "ingredients": [
         "massa pronta de lasanha",
         "400 g de presunto",
@@ -96,10 +88,8 @@
       "information": "Recheie a lasanha com o que preferir."
     },
     {
-      "id": 5,
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/macarrao.png",
       "title": "Espaguete ao alho",
-      "author": "Júlia Kinoto",
       "ingredients": [
         "1 pacote de macarrão 500 g (tipo do macarrão a gosto)",
         "1 saquinho de alho granulado",
@@ -121,10 +111,8 @@
       "information": "Não lave o macarrão nem passe óleo ou gordura nele depois de escorrê-lo. Coloque direto na frigideira."
     },
     {
-      "id": 6,
       "image": "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/launchbase/receitas/doce.png",
       "title": "Docinhos pão-do-céu",
-      "author": "Ricardo Golvea",
       "ingredients": [
         "1 kg de batata - doce",
         "100 g de manteiga",

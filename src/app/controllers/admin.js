@@ -4,18 +4,16 @@ const {
 } = require('../../lib/utils');
 
 exports.index = (req, res) => {
-  Recipes.listAll((recipes) => {
-    return res.render('admin/index', {
-      recipes
-    })
-  })
-
-}
+  Recipes.listAll(recipes => {
+    return res.render("admin/index", {
+      recipes,
+    });
+  });
+};
 
 exports.create = (req, res) => {
-
-  res.render('admin/create')
-}
+  res.render('admin/create');
+};
 
 exports.post = (req, res) => {
 
@@ -26,94 +24,73 @@ exports.post = (req, res) => {
     req.body.ingredients.toString(),
     req.body.preparation.toString(),
     req.body.information,
-    date(Date.now()).iso
-  ]
+    date(Date.now()).iso,
+  ];
 
   console.log(values);
 
-
-  Recipes.create(values, (recipe) => {
-
-    return res.redirect(`recipes/${recipe.id}`)
-  })
-}
+  Recipes.create(values, recipe => {
+    return res.redirect(`recipes/${recipe.id}`);
+  });
+};
 
 exports.show = (req, res) => {
-
-  Recipes.findRecipe(req.params.id, (recipe) => {
-
+  Recipes.findRecipe(req.params.id, recipe => {
     if (!recipe) return res.send('Recipe not found!');
 
     recipe.ingredients = recipe.ingredients.split(',');
-    recipe.ingredients = recipe.ingredients.filter(function(item) {
-      return item != ''
+    recipe.ingredients = recipe.ingredients.filter(function (item) {
+      return item !== '';
     });
     recipe.preparation = recipe.preparation.split(',');
-    recipe.preparation = recipe.preparation.filter(function(item) {
-      return item != ''
-    })
+    recipe.preparation = recipe.preparation.filter(function (item) {
+      return item !== '';
+    });
 
     return res.render('admin/show', {
-      recipe
-    })
-  })
-}
+      recipe,
+    });
+  });
+};
 
 exports.edit = (req, res) => {
-
-  Recipes.findRecipe(req.params.id, (recipe) => {
+  Recipes.findRecipe(req.params.id, recipe => {
     if (!recipe) {
-      return res.send('Recipe not found!')
+      return res.send('Recipe not found!');
     }
 
     recipe.ingredients = recipe.ingredients.split(',');
-    recipe.ingredients = recipe.ingredients.filter(function(item) {
-      return item != ''
+    recipe.ingredients = recipe.ingredients.filter(function (item) {
+      return item != '';
     });
     recipe.preparation = recipe.preparation.split(',');
-    recipe.preparation = recipe.preparation.filter(function(item) {
-      return item != ''
-    })
+    recipe.preparation = recipe.preparation.filter(function (item) {
+      return item != '';
+    });
 
-    console.log(recipe);
-    
     res.render('admin/edit', {
-      recipe
-    })
-  })
-
-
-
-
-
-
-}
+      recipe,
+    });
+  });
+};
 
 exports.put = (req, res) => {
-
   const values = [
     req.body.image,
     req.body.title,
     req.body.ingredients.toString(),
     req.body.preparation.toString(),
     req.body.information,
-    req.body.id
-  ]
+    req.body.id,
+  ];
 
   Recipes.update(values, () => {
-    return res.redirect(`/admin/recipes/${req.body.id}`)
-  })
-}
+    return res.redirect(`/admin/recipes/${req.body.id}`);
+  });
+};
 
 exports.delete = (req, res) => {
-  const {
-    id
-  } = req.body
-
-  const filteredRecipes = data.recipes.filter((recipe) => {
-    return recipe.id != id;
+  Recipes.delete(req.body.id, () => {
+    return res.redirect('admin/recipes')
   })
-
-  data.recipes = filteredRecipes;
-
-}
+};

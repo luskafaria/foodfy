@@ -4,7 +4,6 @@ const routes = express.Router();
 const client = require('./app/controllers/client');
 const admin = require('./app/controllers/admin');
 
-
 /* CLIENT */
 routes.get('/', client.index);
 routes.get('/home', client.home);

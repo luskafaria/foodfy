@@ -2,14 +2,17 @@ const db = require('../../app/config/db');
 
 module.exports = {
   listAll(callback) {
-    db.query(`
+    db.query(
+      `
       SELECT *
       FROM recipes
-      ORDER BY title ASC`, (err, results) => {
-      if (err) throw `Database error: ${err}`;
+      ORDER BY title ASC`,
+      (err, results) => {
+        if (err) throw `Database error: ${err}`;
 
-      callback(results.rows);
-    });
+        callback(results.rows);
+      }
+    );
   },
   create(values, callback) {
     const query = `
@@ -28,19 +31,22 @@ module.exports = {
     db.query(query, values, (err, results) => {
       if (err) throw `Database error: ${err}`;
 
-
       callback(results.rows[0]);
     });
   },
   findRecipe(id, callback) {
-    db.query(`
+    db.query(
+      `
     SELECT *
     FROM recipes
-    WHERE recipes.id = $1`, [id], (err, results) => {
-      if (err) throw `Database error: ${err}`;
+    WHERE recipes.id = $1`,
+      [id],
+      (err, results) => {
+        if (err) throw `Database error: ${err}`;
 
-      callback(results.rows[0]);
-    });
+        callback(results.rows[0]);
+      }
+    );
   },
   update(values, callback) {
     const query = `
@@ -51,15 +57,24 @@ module.exports = {
       preparation=($4),
       information=($5)
     WHERE id = $6
-    `
+    `;
 
-    db.query(query, values,(err, results) => {
-      if(err) throw `Database error:${err}`
+    db.query(query, values, (err, results) => {
+      if (err) throw `Database error:${err}`;
 
-
-      callback()
-    })
+      callback();
+    });
   },
+  delete(id, callback) {
+    const query = `
+    DELETE FROM recipes
+    WHERE id = $1
+    `;
 
+    db.query(query, [id], (err, results) => {
+      if (err) throw `Database error:${err}`;
 
+      callback();
+    });
+  }
 };

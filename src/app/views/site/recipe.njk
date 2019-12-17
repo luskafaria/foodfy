@@ -1,4 +1,4 @@
-{% extends 'admin/layout.njk' %}
+{% extends 'site/layout.njk' %}
 
 {% block head %}
 <title>{{recipe.title}}</title>
@@ -7,13 +7,8 @@
 {% block content %}
 
 <div class="recipeDetail-wrapper">
-
-<header>
-<a href="/admin/recipes">Voltar</a>
-<a href="/admin/recipes/{{recipe.id}}/edit">Editar receita</a>
-</header>
   <div class="recipeDetail-img">
-    <img src="{{recipe.image}}" alt="Image de {{recipe.title}}">
+    <img src="{{recipe.image}}" alt="" class="Image de {{recipe.title}}">
   </div>
 
   <div class="recipeDetail-titleWrapper">
@@ -21,7 +16,19 @@
       <p>{{recipe.title}}</p>
     </div>
     <div class="recipeDetail-author">
-      <p>por {{recipe.author}}</p>
+      <span>
+        {% if recipe.chefs_name == null %}
+        <p>
+          por Chef Anônimo
+        </p>
+        {% endif %}
+
+        {% if recipe.chefs_name != null %}por
+        <a href='/admin/chefs/{{recipe.chef_id}}'>
+          {{recipe.chefs_name}}
+        </a>
+        {% endif %}
+      </span>
     </div>
   </div>
 

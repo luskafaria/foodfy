@@ -45,16 +45,19 @@ html {
   margin-bottom: 50px;
 }
 
-.header > div{
+.header>div {
   width: 940px;
   margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header-logo {
   height: 26.9px;
   display: inline-block;
   vertical-align: middle;
-  margin-right: 122.4px;
 }
 
 .header-nav {
@@ -75,6 +78,25 @@ html {
 
 .active {
   font-weight: bold;
+}
+
+.search-form {
+  display: inline-block;
+}
+
+.search-form input {  
+  border: 1px solid #ddd;
+    height: 37px;
+    border-radius: 4px;
+    padding: 15px 10px;
+}
+
+.search-form button {
+  color: white;
+    background-color: #6558C3;
+    border-radius: 4px;
+    padding: 9px 20px;
+    font-weight: bold;
 }
 
 /*== banner ==*/
@@ -244,7 +266,7 @@ html {
   overflow: hidden;
   border-radius: 15px;
   margin-bottom: 50px;
-text-align: center;
+  text-align: center;
 }
 
 .recipeDetail-titleWrapper {
@@ -315,8 +337,17 @@ text-align: center;
 
 /*===ADMIN INDEX===*/
 .header.admin-header {
-background-color: #111;
-color: white;
+  background-color: #111;
+  color: white;
+
+}
+
+.header.admin-header div{
+justify-content: unset;
+}
+
+.admin-header .header-logo{
+margin-right: 50px;
 }
 
 .recipe-manager-title {
@@ -330,21 +361,29 @@ color: white;
   font-weight: bold;
 }
 
-.visualization-button {
+.visualization-button a {
   text-align: left;
-  background-color: #555;
-  color: var(--color-pink);
+  color: #DC4747;
   font-weight: bold;
   display: inline-block;
-  padding: 8px;
-  border-radius: 4px;
   font-size: 16px;
+  position: relative;
+  margin-top: 8px;
 }
 
-.visualization-button:hover {
-  color: #555;
-  background-color: var(--color-pink);
-  transition: color 200ms ease-in;
+.visualization-button a::after {
+  content: "";
+  width: 0;
+  height: 2px;
+  background-color: #DC4747;
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+}
+
+.visualization-button a:hover::after {
+  width: 100%;
+  transition: width 200ms ease-in-out;
 }
 
 /*===ADMIN SHOW===*/
@@ -383,6 +422,7 @@ color: white;
   color: #111;
   background-color: red;
 }
+
 
 /*===ADMIN EDIT===*/
 
@@ -467,4 +507,73 @@ color: white;
   margin-bottom: 50px;
 }
 
-/*===CREATE===*/
+/*===CHEF===*/
+
+.chefs-list {
+  width: 940px;
+  margin: 0 auto;
+}
+
+.chefs-list h3 {
+  font-size: 24px;
+  color: #111;
+  font-weight: bold;
+}
+
+.chef-grid {
+  margin-top: 30px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 20px;
+}
+
+.chef {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 20px;
+}
+
+.chef-textual {
+  display:grid;
+  grid-template-rows: auto auto 20px;
+  align-items: space-evenly;
+}
+
+.chef-textual a {
+  color: #6558C3;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.chef-textual p {
+  color: #111;
+  font-size: 18px;
+}
+
+.chef-textual .total-recipes p {
+  font-size: 16px;
+  color: #777;
+}
+
+
+.chef-img {
+  width: 72px;
+}
+
+.chef-img img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.chefDetail-img {
+  width: 200px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.chefDetail-img img {
+  border-radius: 50%;
+  width: 100%;
+}

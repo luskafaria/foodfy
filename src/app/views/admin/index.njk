@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class='recipe-manager-title'>
-<h3>Gerenciar receitas</h3>
+  <h3>Gerenciar receitas</h3>
 </div>
 
 <section class='recipes'>
@@ -24,17 +24,29 @@
       </div>
 
       <div class="recipe-author">
-        <a href='/recipes/recipe/{{recipe.id}}'>
-          por {{recipe.author}}
+        <p>
+        {% if recipe.chefs_name == null %}
+        <p>
+          por Chef Anônimo
+        </p>
+        {% endif %}
+
+        {% if recipe.chefs_name != null %}por
+        <a href='/admin/chefs/{{recipe.chef_id}}'>
+          {{recipe.chefs_name}}
         </a>
+        {% endif %}
+      </p>
       </div>
 
-      <div>
-        <a class='visualization-button' href="/admin/recipes/{{recipe.id}}">Visualizar</a>
+      <div class='visualization-button'>
+        <a href="/admin/recipes/{{recipe.id}}">Visualizar</a>
       </div>
     </div>
 
-  {% endfor %}
+    {% endfor %}
+
+  
   </div>
 
   {% endblock %}

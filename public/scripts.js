@@ -74,3 +74,12 @@ function addPreparation() {
 document
   .querySelector('.add-preparation')
   .addEventListener('click', addPreparation);
+
+
+const filter = document.querySelector('.pagination');
+
+if (filter) {
+  elements += `<a href='?page=${page}&filter=${filter}'>${page}</a>`
+} else {
+  elements += `<a href='?page=${page}'>${page}</a>`
+}

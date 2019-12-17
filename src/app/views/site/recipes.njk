@@ -1,8 +1,12 @@
-{% extends 'client/layout.njk' %}
+{% extends 'site/layout.njk' %}
 
 {% block content %}
 <section class='recipes'>
-
+  <h2 class='recipes-title'>
+    {% if filter %}
+    Buscando por "{{filter}}"
+    {% endif %}
+  </h2>
   <div class="recipes-grid">
     {% for recipe in recipes %}
 
@@ -19,10 +23,15 @@
       </div>
       <div class="recipe-author">
         <a href='/recipes/recipe/{{recipe.id}}'>
-          <p>por {{recipe.author}}</p>
+          <p>
+            {% if recipe.chefs_name == null %}por Chef Anônimo{% endif %}
+            {% if recipe.chefs_name != null %}por {{recipe.chefs_name}}{% endif %}
+          </p>
         </a>
       </div>
     </div>
     {% endfor %}
+
+    <div class="pagination" data-page={{pagination.page}} data-total={{pagination.total}} data-filter={{filter}}></div>
   </div>
   {% endblock %}

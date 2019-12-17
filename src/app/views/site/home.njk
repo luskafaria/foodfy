@@ -1,4 +1,4 @@
-{% extends 'client/layout.njk' %}
+{% extends 'site/layout.njk' %}
 
 {% block content %}
 <section class="banner">
@@ -30,7 +30,10 @@
         <p>{{recipe.title}}</p>
       </div>
       <div class="recipe-author">
-        <p>por {{recipe.author}}</p>
+        <p>
+          {% if recipe.chefs_name == null %}por Chef Anônimo{% endif %}
+          {% if recipe.chefs_name != null %}por {{recipe.chefs_name}}{% endif %}
+        </p>
       </div>
     </div>
     {% endfor %}

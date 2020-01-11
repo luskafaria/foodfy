@@ -11,6 +11,7 @@ FOODFY
 </h1>
 
 <p align="center">Projeto desenvolvido como critério de aprovação para o bootcamp ministrado pela Rocketseat.</p>
+<p align="center">Agradecimento especial ao instrutor [Mayk Brito](https://github.com/maykbrito). por toda a dedicaço ao desenvolvimento de seus alunos.</p>
 
 <p align="center">
   <a href="https://opensource.org/licenses/MIT">

@@ -1,8 +1,10 @@
 
 <h1 align="center">
-<br>FOODFY
+FOODFY
+  <br>
+  <br>
   <img src="https://github.com/luskafaria/foodfy/blob/master/public/assets/chef.png" alt="FOODFY LOGO" width="200">
-<br>
+
 <br>  
 <br>
  DESAFIO FINAL DO BOOTCAMP LAUNCHBASE

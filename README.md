@@ -1,12 +1,11 @@
 
 <h1 align="center">
+<br>FOODFY
+  <img src="https://github.com/luskafaria/foodfy/blob/master/public/assets/chef.png" alt="FOODFY LOGO" width="200">
 <br>
-  <img src="https://github.com/luskafaria/foodfy/blob/master/public/assets/chef.png" alt="FOODFY SITE" width="200">
- <br>
-  <img src="https://github.com/luskafaria/foodfy/blob/master/public/assets/logo.png" alt="FOODFY SITE" width="100">
+<br>  
 <br>
-<br>
-FOODFY - DESAFIO FINAL DO BOOTCAMP LAUNCHBASE
+ DESAFIO FINAL DO BOOTCAMP LAUNCHBASE
 </h1>
 
 <p align="center">Projeto desenvolvido como critério de aprovação para o bootcamp ministrado pela Rocketseat.</p>

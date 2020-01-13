@@ -1,0 +1,53 @@
+<div class="item">
+  <div>Imagens da receita</div>
+
+  <div id="images-preview">
+    <div id="images-upload">
+      <input id="images-input" type="file" name="images" multiple accept="image/*"
+        onchange="ImagesUpload.handleFileInput(event)">
+      <div class="images-add">
+        <i class="material-icons">add</i>
+      </div>
+    </div>
+    {% if files %}
+    {% for image in files %}
+    <div class="image" id="{{image.id}}">
+      <img src="{{image.src}}" alt="{{image.name}}">
+      <i class="material-icons" onclick="ImagesUpload.removeOldImage(event)">delete</i>
+    </div>
+    {% endfor %}
+    <input type="hidden" name="removed_files">
+    {% endif %}
+  </div>
+</div>
+
+<div class="item">
+  <div>Título da receita</div>
+  <div><input type="text" name="title" value='{{recipe.title}}'></div>
+</div>
+
+<div class="item">
+  <div><input type="hidden" name="author" value='{{chefs_id}}'></div>
+</div>
+
+<div class="item" id='ingredients'>
+  <div>Ingredientes</div>
+  {% for ingredient in recipe.ingredients %}
+  <div class='ingredient'><input type="text[]" name="ingredients" value='{{ingredient}}'></div>
+  {% endfor %}
+</div>
+<a class='add-field add-ingredient'>Adicionar novo ingrediente</a>
+
+<div class="item" id='preparation'>
+  <div>Modo de preparo</div>
+  {% for step in recipe.preparation %}
+  <div class='preparation'><input type="text[]" name="preparation" id="" value='{{step}}'></div>
+  {% endfor %}
+</div>
+<a class='add-field add-preparation'>Adicionar novo passo</a>
+
+
+<div class="item">
+  <div>Informações adicionais</div>
+  <div><textarea type="text" name="information" id="information">{{recipe.information}}</textarea></div>
+</div>

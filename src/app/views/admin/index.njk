@@ -1,0 +1,52 @@
+{% extends 'admin/layout.njk' %}
+
+{% block content %}
+
+<div class='recipe-manager-title'>
+  <h3>Gerenciar receitas</h3>
+</div>
+
+<section class='recipes'>
+  <div class="recipes-grid">
+    {% for recipe in recipes %}
+
+    <div class="recipe">
+      <div class="recipe-img">
+        <a href='/admin/recipes/{{recipe.id}}/edit'>
+          <img src="{{recipe.image}}" alt="" class="Image de {{recipe.title}}">
+        </a>
+      </div>
+
+      <div class="recipe-content">
+        <a href='/recipes/recipe/{{recipe.id}}'>
+          {{recipe.title}}
+        </a>
+      </div>
+
+      <div class="recipe-author">
+        <p>
+        {% if recipe.chefs_name == null %}
+        <p>
+          por Chef Anônimo
+        </p>
+        {% endif %}
+
+        {% if recipe.chefs_name != null %}por
+        <a href='/admin/chefs/{{recipe.chef_id}}'>
+          {{recipe.chefs_name}}
+        </a>
+        {% endif %}
+      </p>
+      </div>
+
+      <div class='visualization-button'>
+        <a href="/admin/recipes/{{recipe.id}}/edit">Visualizar</a>
+      </div>
+    </div>
+
+    {% endfor %}
+
+  
+  </div>
+
+  {% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'admin/layout.njk' %}
+
+{% block content %}
+
+<div class="edit-wrapper">
+  <header>
+    <h3>Editando receita:
+      {{recipe.title}}</h3>
+    <div class="edit-buttons">
+      <a class='back-button' href="/admin/recipes">Voltar</a>
+      <button type='submit' form='create-form' class='save-button'>Salvar receita</button>
+    </div>
+  </header>
+</div>
+
+<form id='create-form' method='POST' action='/admin/recipes' class="edit-wrapper" enctype="multipart/form-data">
+
+  <div class="item">
+    <div>Imagens da receita</div>
+
+    <div id="images-preview">
+      <div id="images-upload">
+        <input id="images-input" type="file" name="images" multiple accept="image/*"
+          onchange="ImagesUpload.handleFileInput(event)">
+        <div class="images-add">
+          <i class="material-icons">add</i>
+        </div>
+      </div>
+      {% if files %}
+      {% for image in files %}
+      <div class="image" id="{{image.id}}">
+        <img src="{{image.src}}" alt="{{image.name}}">
+        <i class="material-icons" onclick="ImagesUpload.removeOldImage(event)">delete</i>
+      </div>
+      {% endfor %}
+      <input type="hidden" name="removed_files">
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="item">
+    <div>Título da receita</div>
+    <div><input type="text" name="title" required="required"></div>
+  </div>
+
+  <div class="item" id='ingredients'>
+    <div>Ingredientes</div>
+    <div class='field-container'>
+      <div>
+        <input type="text[]" name="ingredients" required="required">
+      </div>
+    </div>
+    <a class='add-field add-ingredient' onclick='addFields.add(event)'>Adicionar novo ingrediente</a>
+  </div>
+
+
+  <div class="item" id='preparation'>
+    <div>Modo de preparo</div>
+    <div class='field-container'>
+      <div>
+        <input type="text[]" name="preparation" required="required">
+      </div>
+    </div>
+    <a class='add-field add-preparation' onclick='addFields.add(event)'>Adicionar novo passo</a>
+  </div>
+
+  <div class="item">
+    <div>Informações adicionais</div>
+    <div>
+      <textarea type="text" name="information" id="information"></textarea>
+    </div>
+  </div>
+
+</form>
+
+{% endblock %}

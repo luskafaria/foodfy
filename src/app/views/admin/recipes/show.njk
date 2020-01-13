@@ -1,4 +1,4 @@
-{% extends 'layout.njk' %}
+{% extends 'admin/layout.njk' %}
 
 {% block head %}
 <title>{{recipe.title}}</title>
@@ -7,8 +7,13 @@
 {% block content %}
 
 <div class="recipeDetail-wrapper">
+
+  <header>
+    <a href="/admin/recipes">Voltar</a>
+    <a href="/admin/recipes/{{recipe.id}}/edit">Editar receita</a>
+  </header>
   <div class="recipeDetail-img">
-    <img src="{{recipe.image}}" alt="" class="Image de {{recipe.title}}">
+    <img src="{{recipe.image}}" alt="Image de {{recipe.title}}">
   </div>
 
   <div class="recipeDetail-titleWrapper">
@@ -16,7 +21,9 @@
       <p>{{recipe.title}}</p>
     </div>
     <div class="recipeDetail-author">
-      <p>por {{recipe.author}}</p>
+      <p>por
+        <a href='/admin/chefs/{{recipe.chef_id}}'> {{recipe.chefs_name}}</a>
+      </p>
     </div>
   </div>
 
@@ -24,7 +31,7 @@
     <div class="ingredients">
       <div class="toggle">
         <h4>Ingredientes</h4>
-        <a>ESCONDER</a>
+        <a onclick="buttonActions.toggleButton(event)">ESCONDER</a>
       </div>
 
 
@@ -40,7 +47,7 @@
     <div class="preparation">
       <div class="toggle">
         <h4>Modo de preparo</h4>
-        <a>ESCONDER</a>
+        <a onclick="buttonActions.toggleButton(event)">ESCONDER</a>
       </div>
 
       <div class="toggle-content">
@@ -52,12 +59,12 @@
       </div>
 
     </div>
-    
+
     <div class="information">
 
       <div class="toggle">
         <h4>Informações adicionais</h4>
-        <a>ESCONDER</a>
+        <a onclick="buttonActions.toggleButton(event)">ESCONDER</a>
       </div>
 
       <div class="toggle-content">

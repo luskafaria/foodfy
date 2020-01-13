@@ -1,5 +1,4 @@
-/*= == NAV FONT-WEIGHT === */
-
+/*=== NAV FONT-WEIGHT === */
 const currentPage = location.pathname;
 const menuItens = document.querySelectorAll('.header-nav a');
 
@@ -9,77 +8,242 @@ for (const item of menuItens) {
   }
 }
 
-/*= == RECIPE TOGGLE === */
+/*=== RECIPE TOGGLE === */
 
-const toggleButton = document.querySelectorAll('.toggle a');
-// const toggleContent = document.querySelectorAll('.toggle-content');
+const buttonActions = {
+  input: "",
+  toggleButton(event) {
+    buttonActions.input = event.target
 
-for (const button of toggleButton) {
-  button.onclick = () => {
-    if (button.innerHTML === 'ESCONDER') {
-      button.innerHTML = 'MOSTRAR';
+    if (buttonActions.input.innerHTML == 'ESCONDER') {
+      buttonActions.input.innerHTML = 'MOSTRAR'
 
-      const parent = button.parentElement.parentElement.querySelector(
-        '.toggle-content'
-      );
-      parent.classList.add('hide');
+      const parent = buttonActions.input.parentElement.parentElement.querySelector('.toggle-content')
+      parent.classList.add('hide')
     } else {
-      button.innerHTML = 'ESCONDER';
+      buttonActions.input.innerHTML = 'ESCONDER'
 
-      const parent = button.parentElement.parentElement.querySelector(
-        '.toggle-content'
-      );
-      parent.classList.remove('hide');
+      const parent = buttonActions.input.parentElement.parentElement.querySelector('.toggle-content')
+      parent.classList.remove('hide')
     }
-  };
+  }
 }
 
-/*= ==ADD NEW FIELD=== */
-/*= =Add Ingredient== */
-function addIngredient() {
-  const ingredients = document.querySelector('#ingredients');
-  const fieldContainer = document.querySelectorAll('.ingredient');
 
-  // Realiza um clone do último ingrediente adicionado
-  const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
+/*===ADD NEW FIELD=== */
+/*==Add Ingredient== */
 
-  // Não adiciona um novo input se o último tem um valor vazio
-  if (newField.children[0].value === '') return false;
+const addFields = {
+  input: "",
+  parent: "",
+  container: "",
+  add(event) {
+    addFields.input = event.target
+    addFields.parent = addFields.input.parentElement
+    addFields.container = addFields.parent.querySelector('.field-container').lastElementChild
 
-  // Deixa o valor do input vazio
-  newField.children[0].value = '';
-  ingredients.appendChild(newField);
+    const newField = addFields.container.cloneNode(true)
+
+    if (newField.children[0].value === '') return false;
+
+    newField.children[0].value = '';
+    addFields.parent.querySelector('.field-container').appendChild(newField);
+  }
 }
 
-document
-  .querySelector('.add-ingredient')
-  .addEventListener('click', addIngredient);
+// function addIngredient() {
+//   const ingredients = document.querySelector('#ingredients');
+//   const fieldContainer = document.querySelectorAll('.ingredient');
 
-/*= =Add Preparation== */
-function addPreparation() {
-  const steps = document.querySelector('#preparation');
-  const fieldContainer = document.querySelectorAll('.preparation');
+//   // Realiza um clone do último ingrediente adicionado
+//   const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
 
-  // Realiza um clone do último passo adicionado
-  const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
+//   // Não adiciona um novo input se o último tem um valor vazio
+//   if (newField.children[0].value === '') return false;
 
-  // Não adiciona um novo input se o último tem um valor vazio
-  if (newField.children[0].value === '') return false;
+//   // Deixa o valor do input vazio
+//   newField.children[0].value = '';
+//   ingredients.appendChild(newField);
+// }
 
-  // Deixa o valor do input vazio
-  newField.children[0].value = '';
-  steps.appendChild(newField);
+// /*= =Add Preparation== */
+// function addPreparation() {
+//   const steps = document.querySelector('#preparation');
+//   const fieldContainer = document.querySelectorAll('.preparation');
+
+//   // Realiza um clone do último passo adicionado
+//   const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
+
+//   // Não adiciona um novo input se o último tem um valor vazio
+//   if (newField.children[0].value === '') return false;
+
+//   // Deixa o valor do input vazio
+//   newField.children[0].value = '';
+//   steps.appendChild(newField);
+// }
+
+
+// const filter = document.querySelector('.pagination');
+
+// if (filter) {
+//   elements += `<a href='?page=${page}&filter=${filter}'>${page}</a>`
+// } else {
+//   elements += `<a href='?page=${page}'>${page}</a>`
+// }
+
+const ImagesUpload = {
+  input: "",
+  preview: document.querySelector('#images-preview'),
+  uploadLimit: 5,
+  files: [],
+
+  handleFileInput(event) {
+    const {
+      files: fileList
+    } = event.target;
+
+    ImagesUpload.input = event.target
+
+    if (ImagesUpload.hasLimit(event)) return
+
+    Array.from(fileList).forEach(file => {
+
+      ImagesUpload.files.push(file)
+
+      const reader = new FileReader()
+
+      reader.onload = () => {
+        const image = new Image()
+        image.src = String(reader.result)
+
+        const div = ImagesUpload.getContainer(image)
+
+        ImagesUpload.preview.appendChild(div)
+
+      }
+
+      reader.readAsDataURL(file)
+    })
+
+    ImagesUpload.input.files = ImagesUpload.getAllFiles()
+  },
+  hasLimit(event) {
+    const {
+      uploadLimit,
+      input,
+      preview
+    } = ImagesUpload;
+
+    const {
+      files: fileList
+    } = input
+
+    if (fileList.length > uploadLimit) {
+      alert(`Envie no máximo ${uploadLimit} imagens`)
+      event.preventDefault();
+      return true
+    }
+
+    const imagesDiv = [];
+
+    preview.childNodes.forEach(item => {
+      if (item.classList && item.classList.value == 'image') {
+        imagesDiv.push(item)
+      }
+    })
+
+    const totalImages = fileList.length + imagesDiv.length
+    if (totalImages > uploadLimit) {
+      alert("Você está ultrapassando o limite de imagens!")
+      event.preventDefault();
+      return true
+    }
+
+    return false
+  },
+  getAllFiles() {
+    const dataTransfer = new ClipboardEvent("").clipboardData || new DataTransfer()
+
+    ImagesUpload.files.forEach(file => dataTransfer.items.add(file))
+
+    return dataTransfer.files
+  },
+  getContainer(image) {
+    const div = document.createElement('div')
+
+    div.classList.add('image')
+
+    div.onclick = ImagesUpload.removeImage
+
+    div.appendChild(image)
+    div.appendChild(ImagesUpload.getRemoveButton())
+
+    return div
+  },
+  getRemoveButton() {
+    const button = document.createElement('i');
+    button.classList.add('material-icons');
+    button.innerHTML = 'close';
+    return button
+  },
+  removeImage(event) {
+    const imageDiv = event.target.parentNode // <div class='image'>
+    const imagesArray = Array.from(ImagesUpload.preview.children)
+    const index = imagesArray.indexOf(imageDiv)
+
+    console.log(imagesArray);
+
+    ImagesUpload.files.splice(index - 1, 1)
+    ImagesUpload.input.files = ImagesUpload.getAllFiles()
+
+    imageDiv.remove();
+  },
+  removeOldImage(event) {
+    const imageDiv = event.target.parentNode
+
+    if (imageDiv.id) {
+      const removedFiles = document.querySelector('input[name="removed_files"]')
+      if (removedFiles) {
+        removedFiles.value += `${imageDiv.id}, `
+
+      }
+    }
+
+    imageDiv.remove()
+  }
 }
 
-document
-  .querySelector('.add-preparation')
-  .addEventListener('click', addPreparation);
+const ImageGallery = {
+  highlight: document.querySelector('.gallery .highlight > img'),
+  previews: document.querySelectorAll('.gallery-preview img'),
 
+  setImage(event) {
+    const {
+      target
+    } = event;
 
-const filter = document.querySelector('.pagination');
+    ImageGallery.previews.forEach(preview => preview.classList.remove('active'))
+    target.classList.add('active')
 
-if (filter) {
-  elements += `<a href='?page=${page}&filter=${filter}'>${page}</a>`
-} else {
-  elements += `<a href='?page=${page}'>${page}</a>`
+    ImageGallery.highlight.src = target.src
+    Lightbox.image.src = target.src
+  }
+}
+
+const Lightbox = {
+  target: document.querySelector('.lightbox-target'),
+  image: document.querySelector('.lightbox-target img'),
+  closeButton: document.querySelector('.lightbox-target a.lightbox-close'),
+  open() {
+    Lightbox.target.style.opacity = 1
+    Lightbox.target.style.top = 0
+    Lightbox.target.style.bottom = 0
+    Lightbox.closeButton.style.top = 0
+  },
+  close() {
+    Lightbox.target.style.opacity = 0
+    Lightbox.target.style.top = "-100%"
+    Lightbox.target.style.bottom = 'initial'
+    Lightbox.closeButton.style.top = "-80px"
+  }
 }

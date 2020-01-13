@@ -7,8 +7,27 @@
 {% block content %}
 
 <div class="recipeDetail-wrapper">
-  <div class="recipeDetail-img">
-    <img src="{{recipe.image}}" alt="" class="Image de {{recipe.title}}">
+  <div class="gallery">
+    <div class="highlight">
+      {% if not recipe.files[0] %}
+      <img src="http://placehold.it/500x500?text=PRODUTO SEM FOTO">
+      {% else %}
+      <img src="{{recipe.files[0].path}}" alt="{{recipe.files[0].name}}" onclick='Lightbox.open()'>
+      {% endif %}
+
+      <div class="lightbox-target">
+        <img src="{{recipe.files[0].path}}" alt="{{recipe.files[0].name}}">
+        <a href="#" class="lightbox-close" onclick='Lightbox.close()' onload='Lightbox.escClose()'>
+          <i class="material-icons">close</i>
+        </a>
+      </div>
+    </div>
+    <div class="gallery-preview">
+      {% for image in recipe.files %}
+      <img src="{{image.path}}" alt="{{image.name}}" {% if loop.index0 == 0 %} class='active' {% endif %}
+        onclick='ImageGallery.setImage(event)'>
+      {% endfor %}
+    </div>
   </div>
 
   <div class="recipeDetail-titleWrapper">
@@ -17,15 +36,15 @@
     </div>
     <div class="recipeDetail-author">
       <span>
-        {% if recipe.chefs_name == null %}
+        {% if recipe.author == null %}
         <p>
           por Chef Anônimo
         </p>
         {% endif %}
 
-        {% if recipe.chefs_name != null %}por
+        {% if recipe.author != null %}por Chef
         <a href='/admin/chefs/{{recipe.chef_id}}'>
-          {{recipe.chefs_name}}
+          {{recipe.author}}
         </a>
         {% endif %}
       </span>
@@ -36,7 +55,7 @@
     <div class="ingredients">
       <div class="toggle">
         <h4>Ingredientes</h4>
-        <a>ESCONDER</a>
+        <a onclick="buttonActions.toggleButton(event)">ESCONDER</a>
       </div>
 
 
@@ -52,7 +71,7 @@
     <div class="preparation">
       <div class="toggle">
         <h4>Modo de preparo</h4>
-        <a>ESCONDER</a>
+        <a onclick="buttonActions.toggleButton(event)">ESCONDER</a>
       </div>
 
       <div class="toggle-content">
@@ -69,7 +88,7 @@
 
       <div class="toggle">
         <h4>Informações adicionais</h4>
-        <a>ESCONDER</a>
+        <a onclick="buttonActions.toggleButton(event)">ESCONDER</a>
       </div>
 
       <div class="toggle-content">

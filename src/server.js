@@ -10,6 +10,7 @@ server.use(
     extended: true,
   })
 );
+
 server.use(express.static('public'));
 server.use(methodOverride('_method'));
 server.use(routes);

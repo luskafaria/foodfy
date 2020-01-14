@@ -9,10 +9,10 @@
         <i class="material-icons">add</i>
       </div>
     </div>
-    {% if files %}
-    {% for image in files %}
+    {% if recipe.files %}
+    {% for image in recipe.files %}
     <div class="image" id="{{image.id}}">
-      <img src="{{image.src}}" alt="{{image.name}}">
+      <img src="{{image.path}}" alt="{{image.name}}">
       <i class="material-icons" onclick="ImagesUpload.removeOldImage(event)">delete</i>
     </div>
     {% endfor %}
@@ -32,19 +32,27 @@
 
 <div class="item" id='ingredients'>
   <div>Ingredientes</div>
+  <div class='field-container'>
   {% for ingredient in recipe.ingredients %}
-  <div class='ingredient'><input type="text[]" name="ingredients" value='{{ingredient}}'></div>
+    <div>
+      <input type="text[]" name="ingredients" value='{{ingredient}}'>
+    </div>
   {% endfor %}
+  </div>
+<a class='add-field add-ingredient' onclick='addFields.add(event)'>Adicionar novo ingrediente</a>
 </div>
-<a class='add-field add-ingredient'>Adicionar novo ingrediente</a>
 
 <div class="item" id='preparation'>
   <div>Modo de preparo</div>
   {% for step in recipe.preparation %}
-  <div class='preparation'><input type="text[]" name="preparation" id="" value='{{step}}'></div>
+  <div class='field-container'>
+    <div>
+      <input type="text[]" name="preparation" id="" value='{{step}}'>
+    </div>
+  </div>
   {% endfor %}
+<a class='add-field add-preparation' onclick='addFields.add(event)'>Adicionar novo passo</a>
 </div>
-<a class='add-field add-preparation'>Adicionar novo passo</a>
 
 
 <div class="item">

@@ -1,4 +1,5 @@
 const db = require('../../app/config/db');
+const fs = require('fs')
 
 module.exports = {
   listAll() {
@@ -47,26 +48,48 @@ module.exports = {
     )
     return results.rows
   },
-  update(values) {
+  async update(values) {
     const query = `
-    UPDATE recipes SET
-      image=($1),
-      title=($2),
-      ingredients=($3),
-      preparation=($4),
-      information=($5)
-    WHERE id = $6
+    UPDATE recipes SET 
+      title=($1),
+      ingredients=($2),
+      preparation=($3),
+      information=($4)
+    WHERE id = ($5)
     `;
 
-    return db.query(query, values);
+    await db.query(query, values)
+    return
   },
-  delete(id) {
-    const query = `
+  async delete(id) {
+
+    //deletar a receita
+    await db.query(`
     DELETE FROM recipes
     WHERE id = $1
-    `;
+    `, [id])
 
-    return db.query(query, [id])
+    // pegar todos os arquivos
+    const results = await db.query(
+      `
+    SELECT files.*, recipe_id, file_id
+    FROM files
+    LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
+    WHERE recipe_files.recipe_id = $1
+    `, [id]
+    )
+    const files = results.rows
+    
+    // deletar todos os arquivos
+    files.map(async file => {
+      fs.unlinkSync(`public/${file.path}`)
+      await db.query(`
+      DELETE FROM files
+      WHERE id = $1
+      `,[file.id])
+    })
+
+    return
   },
   findBy(filter) {
     return db.query(`

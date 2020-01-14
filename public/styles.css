@@ -304,7 +304,14 @@ html {
   line-height: 28px;
   color: #444;
   padding-bottom: 39px;
+  list-style-type: none;
 }
+
+.recipeDetail-content ul li:before {
+  content: '-';
+  margin-right: 8px;
+}
+
 
 .recipeDetail-content .information p {
   font-size: 18px;
@@ -391,7 +398,7 @@ margin-right: 50px;
 .recipeDetail-wrapper header {
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -472,7 +479,7 @@ margin-right: 50px;
   margin-top: 30px;
 }
 
-.item div:first-child {
+.item>div:first-child {
   font-weight: bold;
   font-size: 16px;
   color: #111;

@@ -49,7 +49,6 @@ module.exports = {
     }
   },
   async recipe(req, res) {
-
     try {
 
       const recipeId = req.params.id
@@ -73,8 +72,6 @@ module.exports = {
         ...recipe,
         files
       }
-
-      console.log(recipe);
 
       return res.render('site/recipe', {
         recipe

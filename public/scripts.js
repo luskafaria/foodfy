@@ -7,9 +7,6 @@ for (const item of menuItens) {
     item.classList.add('active');
   }
 }
-
-/*=== RECIPE TOGGLE === */
-
 const buttonActions = {
   input: "",
   toggleButton(event) {
@@ -28,11 +25,6 @@ const buttonActions = {
     }
   }
 }
-
-
-/*===ADD NEW FIELD=== */
-/*==Add Ingredient== */
-
 const addFields = {
   input: "",
   parent: "",
@@ -50,47 +42,6 @@ const addFields = {
     addFields.parent.querySelector('.field-container').appendChild(newField);
   }
 }
-
-// function addIngredient() {
-//   const ingredients = document.querySelector('#ingredients');
-//   const fieldContainer = document.querySelectorAll('.ingredient');
-
-//   // Realiza um clone do último ingrediente adicionado
-//   const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
-
-//   // Não adiciona um novo input se o último tem um valor vazio
-//   if (newField.children[0].value === '') return false;
-
-//   // Deixa o valor do input vazio
-//   newField.children[0].value = '';
-//   ingredients.appendChild(newField);
-// }
-
-// /*= =Add Preparation== */
-// function addPreparation() {
-//   const steps = document.querySelector('#preparation');
-//   const fieldContainer = document.querySelectorAll('.preparation');
-
-//   // Realiza um clone do último passo adicionado
-//   const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true);
-
-//   // Não adiciona um novo input se o último tem um valor vazio
-//   if (newField.children[0].value === '') return false;
-
-//   // Deixa o valor do input vazio
-//   newField.children[0].value = '';
-//   steps.appendChild(newField);
-// }
-
-
-// const filter = document.querySelector('.pagination');
-
-// if (filter) {
-//   elements += `<a href='?page=${page}&filter=${filter}'>${page}</a>`
-// } else {
-//   elements += `<a href='?page=${page}'>${page}</a>`
-// }
-
 const ImagesUpload = {
   input: "",
   preview: document.querySelector('#images-preview'),
@@ -212,7 +163,6 @@ const ImagesUpload = {
     imageDiv.remove()
   }
 }
-
 const ImageGallery = {
   highlight: document.querySelector('.gallery .highlight > img'),
   previews: document.querySelectorAll('.gallery-preview img'),
@@ -229,7 +179,6 @@ const ImageGallery = {
     Lightbox.image.src = target.src
   }
 }
-
 const Lightbox = {
   target: document.querySelector('.lightbox-target'),
   image: document.querySelector('.lightbox-target img'),

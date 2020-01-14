@@ -20,8 +20,9 @@ FOODFY
 </p>
 
 [//]: # (Add your gifs/images here:)
+
 <div>
-  <img src="IMAGE_1_URL" alt="demo" height="425">
+  <gif src="https://assets4.lottiefiles.com/packages/lf20_hntzYU.json" alt="demo" height="425">
   <img src="IMAGE_2_URL" alt="demo" height="425">
 </div>
 

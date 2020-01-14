@@ -39,7 +39,6 @@ Este sistema utiliza os conceitos mais fundamentais do desenvolvimento web, pass
 
 <h1 align='center'>
 PROJETO EM CONSTRUÇÃO
-  <br><br><br>
 </h1
   
 ![gif](demo/8633-web-development.gif)

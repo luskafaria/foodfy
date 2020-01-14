@@ -22,8 +22,8 @@ FOODFY
 [//]: # (Add your gifs/images here:)
 
 <div>
-  <gif src="https://assets4.lottiefiles.com/packages/lf20_hntzYU.gif" alt="demo" height="425">
-  <img src="IMAGE_2_URL" alt="demo" height="425">
+  <gif src="demo/8633-web-development.gif" alt="demo" height="425">
+  <img src="" alt="demo" height="425">
 </div>
 
 <hr />
@@ -37,8 +37,12 @@ Este sistema utiliza os conceitos mais fundamentais do desenvolvimento web, pass
 
 ## Como utilizar?
 
---Em breve!
-
+<h1 align='center'>
+PROJETO EM CONSTRUÇÃO
+  <br><br><br>
+</h1
+  
+![gif](demo/8633-web-development.gif)
 
 ## Licença
 

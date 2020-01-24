@@ -1,31 +1,42 @@
 const db = require('../../app/config/db');
 const fs = require('fs')
 
+const Base = require('./Base')
+
+Base.init({
+  table: 'recipes'
+})
+
 module.exports = {
-  listAll() {
+  ...Base,
+ async findAll() {
     const query = `
-    SELECT recipes.*, chefs.name AS chefs_name
+    SELECT recipes.*, chefs.name AS author
     FROM recipes
     LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+    ORDER BY created_at DESC
     `
-    return db.query(query);
-  },
-  async create(values) {
-    const query = `
-    INSERT INTO recipes (
-      chef_id,
-      title,
-      ingredients,
-      preparation,
-      information
-    ) VALUES ($1, $2, $3, $4, $5)
-    RETURNING id
-    `;
+    const results = await db.query(query)
 
-    const results = await db.query(query, values)
-
-    return results.rows[0].id
+    return results.rows
   },
+  // async create(values) {
+  //   const query = `
+  //   INSERT INTO recipes (
+  //     user_id,
+  //     chef_id,
+  //     title,
+  //     ingredients,
+  //     preparation,
+  //     information
+  //   ) VALUES ($1, $2, $3, $4, $5, $6)
+  //   RETURNING id
+  //   `;
+
+  //   const results = await db.query(query, values)
+
+  //   return results.rows[0].id
+  // },
   async findOne(id) {
     const results = await db.query(
       `
@@ -91,13 +102,33 @@ module.exports = {
 
     return
   },
-  findBy(filter) {
-    return db.query(`
-    SELECT recipes.*, chefs.name AS chefs_name
+  async findBy(filter) {
+    const results = await db.query(`
+    SELECT recipes.*, chefs.name AS author
     FROM recipes
     LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
     WHERE recipes.title ILIKE '%${filter}%'
     OR recipes.ingredients ILIKE '%${filter}%'
-   `);
-  }
+    ORDER BY updated_at DESC
+   `)
+
+   return results.rows
+  },
+  async findUserFiles(userId) {
+
+    const recipes = await db.query(`
+    SELECT recipes.*, users.name AS user
+    FROM recipes
+    LEFT JOIN users ON (recipes.user_id = users.id)
+    WHERE users.id=$1
+    `, [userId])
+
+    const results = await recipes.map(async recipes => {
+      await db.query(`
+      SELEC from 
+      `)
+    })
+
+    return results.rows
+  },
 };

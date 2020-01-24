@@ -1,0 +1,55 @@
+header.login-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 35px;
+  margin-bottom: 150px
+}
+
+.login-edit-wrapper {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.login-edit-wrapper header {
+  text-align: center;
+  font-weight: bold;
+  font-size: 24px;
+  color: #111;
+}
+
+
+
+form .login-fields {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 35px;
+}
+
+form .login-fields input {
+  padding: 15px;
+}
+
+form .login-edit-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 35px;
+  font-weight: bold;
+}
+
+form .login-edit-buttons a {
+  font-weight: bold;
+  font-size: 16px;
+  color: #969696;
+}
+
+form .login-edit-buttons button {
+  background: #6558C3;
+  border-radius: 4px;
+  border-radius: 4px;
+  color: white;
+  padding: 9px 35px;
+}

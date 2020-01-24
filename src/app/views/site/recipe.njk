@@ -1,12 +1,12 @@
 {% extends 'site/layout.njk' %}
 
 {% block head %}
-<title>{{recipe.title}}</title>
+<title>Foodfy | {{recipe.title}}</title>
 {% endblock %}
 
 {% block content %}
 
-<div class="recipeDetail-wrapper">
+<div class="detail-container">
   <div class="gallery">
     <div class="highlight">
       {% if not recipe.files[0] %}
@@ -43,7 +43,7 @@
         {% endif %}
 
         {% if recipe.author != null %}por Chef
-        <a href='/admin/chefs/{{recipe.chef_id}}'>
+        <a href='/chefs/chef/{{recipe.chef_id}}'>
           {{recipe.author}}
         </a>
         {% endif %}

@@ -1,13 +1,50 @@
 const Recipe = require('../models/Recipe');
 const File = require('../models/File');
 
-module.exports = {
-  async index(req, res) {
-    let results = await Recipe.listAll();
-    const recipes = results.rows
+async function createRecipesList(req, res) {
+  let recipes = await Recipe.findAll()
 
-    return res.render("admin/index", {
-      recipes,
+  async function getImage(productId) {
+    let results = await Recipe.files(productId)
+
+    return results[0]
+  }
+
+  const recipesPromise = recipes.map(async recipe => {
+
+    recipe.file = await getImage(recipe.id)
+
+    return recipe
+  })
+
+  let recipesList = await Promise.all(recipesPromise)
+
+  return recipesList
+}
+
+module.exports = {
+
+  async listAll(req, res) {
+
+    let recipesList = await createRecipesList(req, res)
+
+    return res.render("admin/recipes/list.njk", {
+      recipes: recipesList,
+    })
+  },
+  async listMyRecipes(req, res) {
+
+    let recipesList = await createRecipesList(req, res)
+
+    function filterMyRecipes(recipe) {
+
+      return recipe.user_id == req.session.userId
+    }
+
+    recipesList = recipesList.filter(filterMyRecipes)
+
+    return res.render("admin/recipes/list.njk", {
+      recipes: recipesList,
     })
   },
   create(req, res) {
@@ -30,22 +67,20 @@ module.exports = {
 
     const filesIds = await Promise.all(filesPromise)
 
-    values = [
-      req.body.chef_id = 1,
-      req.body.title,
-      req.body.ingredients.toString(),
-      req.body.preparation.toString(),
-      req.body.information
-    ];
+    let recipe = {
+      user_id: req.body.user_id || 1,
+      chef_id: req.body.chef_id || 1,
+      title: req.body.title,
+      ingredients: req.body.ingredients.toString(),
+      preparation: req.body.preparation.toString(),
+      information: req.body.information
+    }
 
-    const recipeId = await Recipe.create(values);
+    const recipeId = await Recipe.create(recipe);
 
     File.init({
       table: 'recipe_files'
     })
-
-    console.log(recipeId);
-    console.log(filesIds);
 
     const relationPromise = filesIds.map(id => File.create({
       recipe_id: recipeId,
@@ -58,6 +93,12 @@ module.exports = {
   },
   async show(req, res) {
     try {
+
+      const error = req.session.error
+      req.session.error = ""
+
+      const success = req.session.success
+      req.session.success = ""
 
       const recipeId = req.params.id
 
@@ -82,7 +123,9 @@ module.exports = {
       }
 
       return res.render(`admin/recipes/show`, {
-        recipe
+        recipe,
+        error,
+        success
       })
     } catch (err) {
       console.error(err)
@@ -90,29 +133,34 @@ module.exports = {
   },
   async edit(req, res) {
 
-    let recipe = await Recipe.findOne(req.params.id)
+    try {
+      let recipe = await Recipe.findOne(req.params.id)
 
-    if (!recipe) return res.send('Recipe not found!');
+      if (!recipe) return res.send('Recipe not found!');
 
-    recipe.ingredients = recipe.ingredients.split(',');
-    recipe.ingredients = recipe.ingredients.filter(function (item) {
-      return item != '';
-    });
-    recipe.preparation = recipe.preparation.split(',');
-    recipe.preparation = recipe.preparation.filter(function (item) {
-      return item != '';
-    });
+      recipe.ingredients = recipe.ingredients.split(',');
+      recipe.ingredients = recipe.ingredients.filter(function (item) {
+        return item != '';
+      });
+      recipe.preparation = recipe.preparation.split(',');
+      recipe.preparation = recipe.preparation.filter(function (item) {
+        return item != '';
+      });
 
-    let files = await Recipe.files(req.params.id)
+      let files = await Recipe.files(req.params.id)
 
-    recipe = {
-      ...recipe,
-      files
+      recipe = {
+        ...recipe,
+        files
+      }
+
+      res.render('admin/recipes/edit', {
+        recipe,
+      });
+    } catch (err) {
+      console.log(err);
+
     }
-
-    res.render('admin/recipes/edit', {
-      recipe,
-    });
   },
   async put(req, res) {
     try {
@@ -169,6 +217,8 @@ module.exports = {
       ];
 
       await Recipe.update(values)
+
+      req.session.success = 'Receita alterada com sucesso!'
 
       return res.redirect(`/admin/recipes/${req.body.id}`)
     } catch (err) {

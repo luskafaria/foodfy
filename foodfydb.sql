@@ -1,46 +1,66 @@
-DROP DATABASE IF EXISTS foodfy
-CREATE DATABASE foodfy
+DROP DATABASE IF EXISTS foodfy;
+CREATE DATABASE foodfy;
 
-CREATE TABLE "recipes" (
-  "id" SERIAL PRIMARY KEY,
-  "chef_id" integer NOT NULL,
-  "title" text NOT NULL,
-  "ingredients" text NOT NULL,
-  "preparation" text NOT NULL,
-  "information" text NOT NULL,
-  "created_at" timestamp DEFAULT (now()),
-  "updated_at" timestamp DEFAULT (now())
-);
-
-CREATE TABLE "chefs" (
-  "id" SERIAL PRIMARY KEY,
-  "name" text NOT NULL,
-  "file_id" integer NOT NULL REFERENCES "files" (id),
-  "created_at" timestamp DEFAULT (now()),
-  "updated_at" timestamp DEFAULT (now())
+CREATE TABLE "users" (
+"id" SERIAL PRIMARY KEY,
+"name" TEXT NOT NULL,
+"email" TEXT UNIQUE NOT NULL,
+"password" TEXT NOT NULL,
+"reset_token" TEXT,
+"reset_token_expires" TEXT,
+"is_admin" BOOLEAN NOT NULL DEFAULT 0,
+"created_at" TIMESTAMP DEFAULT(now()),
+"updated_at" TIMESTAMP DEFAULT(now())
 );
 
 CREATE TABLE "files" (
-  "id" SERIAL PRIMARY KEY,
-  "name" text NOT NULL,
-  "path" text NOT NULL
+"id" SERIAL PRIMARY KEY,
+"name" text NOT NULL,
+"path" text NOT NULL
+);
+
+CREATE TABLE "chefs" (
+"id" SERIAL PRIMARY KEY,
+"name" text NOT NULL,
+"file_id" integer NOT NULL REFERENCES "files" (id),
+"created_at" timestamp DEFAULT (now()),
+"updated_at" timestamp DEFAULT (now())
+);
+
+CREATE TABLE "recipes" (
+"id" SERIAL PRIMARY KEY,
+"chef_id" integer NOT NULL REFERENCES "chefs"(id),
+"user_id" integer NOT NULL REFERENCES "users"(id) ON DELETE CASCADE,
+"title" text NOT NULL,
+"ingredients" text NOT NULL,
+"preparation" text NOT NULL,
+"information" text NOT NULL,
+"created_at" timestamp DEFAULT (now()),
+"updated_at" timestamp DEFAULT (now())
 );
 
 CREATE TABLE "recipe_files" (
-  "id" SERIAL PRIMARY KEY,
-  "recipe_id" integer REFERENCES recipes(id),
-  "file_id" integer REFERENCES files(id)
+"id" SERIAL PRIMARY KEY,
+"recipe_id" integer REFERENCES recipes(id) ON DELETE CASCADE,
+"file_id" integer REFERENCES files(id)
 );
 
--- chefs_id in recipes references chef(id)
-ALTER TABLE "recipes" ADD FOREIGN KEY ("chef_id") REFERENCES "chefs" ("id");
+CREATE TABLE "session" (
+"sid" varchar NOT NULL COLLATE "default",
+"sess" json NOT NULL,
+"expire" timestamp(6) NOT NULL
+)
+WITH (OIDS=FALSE);
+ALTER TABLE "session"
+ADD CONSTRAINT "session_pkey"
+PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 
 --create procedure
-CREATE FUNCTION trigger_set_timestamp() 
+CREATE FUNCTION trigger_set_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
-  NEW.updated_at = NOW();
-  RETURN NEW;
+NEW.updated_at = NOW();
+RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -55,6 +75,29 @@ CREATE TRIGGER set_timestamp
 BEFORE UPDATE ON chefs
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
+
+--auto updated_at users
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON users
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+
+-- user cascade function
+CREATE OR REPLACE FUNCTION delete_files_when_recipe_files_row_was_deleted()
+RETURNS TRIGGER AS $$
+BEGIN
+EXECUTE ('DELETE FROM files
+WHERE id = $1')
+USING OLD.file_id;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- user cascade trigger
+CREATE TRIGGER delete_recipe_files
+AFTER DELETE ON recipe_files
+FOR EACH ROW
+EXECUTE PROCEDURE delete_files_when_recipe_files_row_was_deleted();
 
 -- to run seeds
 DELETE FROM chefs;
@@ -73,9 +116,8 @@ REFERENCES recipes("id")
 ON DELETE CASCADE;
 
 ALTER TABLE "recipe_files"
-DROP CONSTRAINT recipe_files_file_id_fkey	,
-ADD CONSTRAINT recipe_files_file_id_fkey	
-FOREIGN KEY ("file_id") 
+DROP CONSTRAINT recipe_files_file_id_fkey,
+ADD CONSTRAINT recipe_files_file_id_fkey
+FOREIGN KEY ("file_id")
 REFERENCES files("id")
-
-
+ON DELETE CASCADE

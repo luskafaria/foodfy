@@ -2,36 +2,26 @@
 
 {%block content%}
 
-  <div class="edit-wrapper">
-    <header>
-      <h3>Editando receita:
-        {{recipe.title}}</h3>
-      <div class="edit-buttons">
-        <a class='back-button' href="/admin/chefs">Voltar</a>
-        <button type='submit' form='form-delete' class='delete-button'>Deletar</button>
-        <button type='submit' form='form-edit' class='save-button'>Salvar chef</a>
-      </div>
-    </header>
-
-    <form id='form-edit' method='POST' action='/admin/chefs/?_method=PUT'>
-      <input type="hidden" name='id' value={{chef.id}}>
-
-      <div class="item">
-      <div>Nome</div>
-      <div><input type="text" name="name" required="required"></div>
+<div class="edit-wrapper">
+  <header>
+    <h3>Editando chef:
+      {{chef.name}}</h3>
+    <div class="edit-buttons">
+      <button type='submit' form='form-delete' class='delete-button'>Deletar</button>
+      <button type='submit' form='form-edit' class='save-button'>Salvar chef</a>
     </div>
-    <div class="item">
-      <div>Avatar</div>
-      <div><input type="url" name="avatar_url" value='http://' required="required"></div>
-    </div>
-    </form>
+  </header>
 
+  <form id='form-edit' method='POST' action='/admin/chefs?_method=PUT' class="edit-wrapper"
+    enctype="multipart/form-data">
 
+   {% include '../parts/chefs-fields.njk' %}
 
-    <form id='form-delete' action="/admin/chefs?_method=DELETE" method="post">
-      <input type="hidden" name="id" value='{{chef.id}}'>
-    </form>
+  </form>
 
-  </div>
+  <form id='form-delete' method='POST' action='/admin/chefs?_method=DELETE'>
+    <input type="hidden" name="file_id" value="{{chef.file_id}}">
+    <input type="hidden" name="id" value="{{chef.id}}">
+  </form>
 
-{% endblock %}
+  {% endblock %}

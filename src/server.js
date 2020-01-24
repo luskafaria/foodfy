@@ -1,7 +1,8 @@
-const express = require('express');
-const nunjucks = require('nunjucks');
-const methodOverride = require('method-override');
-const routes = require('./routes');
+const express = require('express')
+const nunjucks = require('nunjucks')
+const methodOverride = require('method-override')
+const routes = require('./routes')
+const session = require('./app/config/session')
 
 const server = express();
 
@@ -11,6 +12,12 @@ server.use(
   })
 );
 
+server.use(session)
+server.use((req, res, next) => {
+  res.locals.session = req.session
+  
+  next()
+})
 server.use(express.static('public'));
 server.use(methodOverride('_method'));
 server.use(routes);

@@ -1,0 +1,178 @@
+@import "https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap";
+
+:root {
+  --primary-color: #6558C3;
+  --secondary-color: #FBDFDB;
+  --detail-color: #eeeeee;
+}
+
+/*=== CSS REST ===*/
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  text-decoration: none;
+  box-sizing: border-box;
+  color: inherit;
+}
+
+/*=== HOME ===*/
+/*==header==*/
+body,
+html {
+  font-family: 'Roboto', sans-serif;
+  color: #111111;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  padding-bottom: 64px;
+  /* Footer height */
+}
+
+.header {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 28px;
+}
+
+.header>div {
+  width: 940px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  height: 26.9px;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+}
+
+.header-nav a.my-account {
+  display: flex;
+  align-items: center;
+}
+
+.header-nav a.my-account i{
+  font-size: 18px;
+}
+
+.header-nav a {
+  margin: 15px;
+  color: inherit;
+  font-size: 16px;
+  line-height: 26px;
+  text-transform: uppercase;
+}
+
+.header-nav a:hover {
+  font-weight: bold;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.search-form {
+  display: inline-block;
+}
+
+.search-form input {
+  border: 1px solid #ddd;
+  height: 37px;
+  border-radius: 4px;
+  padding: 15px 10px;
+}
+
+.search-form button {
+  color: white;
+  background-color: #6558C3;
+  border-radius: 4px;
+  padding: 9px 20px;
+  font-weight: bold;
+}
+
+/*== banner ==*/
+
+.banner {
+  height: 366px;
+
+  background-color: var(--secondary-color);
+
+  border-radius: 30px;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  width: 940px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+.banner-text {
+  justify-self: center;
+  align-self: center;
+}
+
+.banner-text h3 {
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 42px;
+
+  margin-bottom: 5px;
+}
+
+.banner-text p {
+  font-size: 18px;
+  line-height: 28px;
+  color: #000000;
+  opacity: 0.7;
+}
+
+.banner-img {
+  justify-self: center;
+  align-self: end;
+}
+
+
+/*== FOOTER ==*/
+
+footer {
+  min-height: 62px;
+
+  background-color: #eeeeee;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: auto;
+}
+
+footer p {
+  color: #999;
+  font-size: 14px;
+  line-height: 24px;
+  align-self: center;
+}

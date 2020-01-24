@@ -2,29 +2,19 @@
 
 {% block content %}
 
-  <div class="edit-wrapper">
-    <header>
-      <h3>Criando chef
-        {{recipe.title}}</h3>
-      <div class="edit-buttons">
-        <a class='back-button' href="/admin/chefs">Voltar</a>
-        <button type='submit' form='create-form' class='save-button'>Salvar chef</button>
-      </div>
-    </header>
-  </div>
-
-  <form id='create-form' method='POST' action='/admin/chefs' class="edit-wrapper">
-
-    <div class="item">
-      <div>Nome</div>
-      <div><input type="text" name="name" required="required"></div>
+<div class="edit-wrapper">
+  <header>
+    <h3>Criar novo usuário</h3>
+    <div class="edit-buttons">
+      <button type='submit' form='create-form' class='save-button'>Salvar chef</button>
     </div>
-    <div class="item">
-      <div>Avatar</div>
-      <div><input type="url" name="avatar_url" value='http://' required="required"></div>
-    </div>
+  </header>
+</div>
 
-    
-  </form>
+<form id='create-form' method='POST' action='/admin/chefs' class="edit-wrapper" enctype="multipart/form-data">
+
+  {% include '../parts/chefs-fields.njk' %}
+
+</form>
 
 {% endblock %}

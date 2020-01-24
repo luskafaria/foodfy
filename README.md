@@ -29,17 +29,20 @@ FOODFY
 <hr />
 
 ## Características
-Este sistema utiliza os conceitos mais fundamentais do desenvolvimento web, passando pelo frontend e pelo backend.
 
-- :hearts: **Node JS** — Framawork web para NodeJS
-- :page_facing_up: **Nunjucks** — Template engine para Javascript
-- :elephant: **PostgreSQL** — BD relacional OpenSource.
+Este projeto é uma representação teórica de um sistema de gerenciamento de site de receitas. Para construí-lo foram empregados os conceitos mais fundamentais do desenvolvimento web, passando pelo frontend e backend.
 
-## Como utilizar?
+## Ingredientes
 
-<h1 align='center'>
-PROJETO EM CONSTRUÇÃO
-</h1
+- NodeJS v13.2.0
+- PostgreSQL
+- Nunjucks
+- Editor de texto da sua preferência
+
+## Modo de preparo
+
+Clone este repositório utilizando o download direto ou gitclone: 
+
   
 ![gif](demo/8633-web-development.gif)
 

@@ -1,44 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-  <head>
-    <meta charset="UTF-8">
-    
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css">
+<head>
+  <meta charset="UTF-8">
 
-    {% block head %}
-      <title>Foodfy | Receitas inteligentes</title>
-    {% endblock %}
+  {% include './parts/styles.njk' %}
 
-  </head>
+  {% block head %}
+  <title>Foodfy | Receitas inteligentes</title>
+  {% endblock %}
 
-  <body>
-    <div class="page-container">
-      <div class="content-wrapper">
-        <header class="header admin-header">
-          <div>
-            <div class="header-logo">
-              <img src="/assets/logo2.png" alt="Foodfy logo">
-            </div>
-            <div class="header-nav">
-              <a href='/home'>Site
-              </a>
-              <a href='/admin/recipes'>Receitas</a>
-              <a href='/admin/chefs'>Chefs</a>
-            </div>
-          </div>
-        </header>
-        {% block content %}
-        {% endblock %}
+</head>
 
-      </div>
-      <footer class="footer">
-        <p>Todos os direitos reservados, receitas Foodfy.</p>
-      </footer>
-    </div>
+<body>
 
-    <script src="/scripts.js"></script>
-  </body>
+  {% include './parts/header.njk' %}
+
+  {% include './parts/messages.njk' %}
+
+  {% block content %}
+  {% endblock %}
+
+  {% include './parts/footer.njk' %}
+
+</body>
 
 </html

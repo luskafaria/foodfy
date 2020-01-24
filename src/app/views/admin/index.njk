@@ -1,52 +1,47 @@
-{% extends 'admin/layout.njk' %}
+{% extends './layout.njk' %}
 
 {% block content %}
 
-<div class='recipe-manager-title'>
-  <h3>Gerenciar receitas</h3>
+<div class="edit-wrapper">
+  <header>
+
+    <h3>Bem vindo {{user.firstName}}</h3>
+
+
+    <div class="edit-buttons">
+      <button type='submit' form='create-form' class="button">Salvar</button>
+    </div>
+  </header>
+  {% if session.userId and session.isAdmin%}
+  <span>Administrador</span>
+  {% endif %}
 </div>
 
-<section class='recipes'>
-  <div class="recipes-grid">
-    {% for recipe in recipes %}
+<form id='create-form' method='POST' action='/admin/users?_method=PUT' class="edit-wrapper">
 
-    <div class="recipe">
-      <div class="recipe-img">
-        <a href='/admin/recipes/{{recipe.id}}/edit'>
-          <img src="{{recipe.image}}" alt="" class="Image de {{recipe.title}}">
-        </a>
-      </div>
+  <div class="user-register">
+    {% include './user/fields.njk' %}
 
-      <div class="recipe-content">
-        <a href='/admin/recipes/{{recipe.id}}/'>
-          {{recipe.title}}
-        </a>
-      </div>
-
-      <div class="recipe-author">
-        <p>
-        {% if recipe.chefs_name == null %}
-        <p>
-          por Chef Anônimo
-        </p>
-        {% endif %}
-
-        {% if recipe.chefs_name != null %}por
-        <a href='/admin/chefs/{{recipe.chef_id}}'>
-          {{recipe.chefs_name}}
-        </a>
-        {% endif %}
-      </p>
-      </div>
-
-      <div class='visualization-button'>
-        <a href="/admin/recipes/{{recipe.id}}">Visualizar</a>
+    <div class="item">
+      <div>Senha</div>
+      <div>
+        <input type="password" name="password" placeholder="Informe a senha cadastrada" required>
       </div>
     </div>
 
-    {% endfor %}
+    <div class="item">
+      <div>
 
-  
+      </div>
+    </div>
   </div>
 
-  {% endblock %}
+  <input type="hidden" name="id" value="{{user.id}}">
+
+</form>
+
+<form id='delete-form' method='POST' action='/admin/users?_method=DELETE'>
+  <input type="hidden" name="id" value="{{user.id}}">
+</form>
+
+{% endblock %}

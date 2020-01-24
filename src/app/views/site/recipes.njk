@@ -5,33 +5,14 @@
   <h2 class='recipes-title'>
     {% if filter %}
     Buscando por "{{filter}}"
+    {% else %}
+    Todas as receitas
     {% endif %}
   </h2>
-  <div class="recipes-grid">
-    {% for recipe in recipes %}
+  
+  {% import './parts/recipes-grid.njk' as recipesGrid %}
 
-    <div class="recipe">
-      <div class="recipe-img">
-        <a href='/recipes/recipe/{{recipe.id}}'>
-          <img src="{{recipe.image}}" alt="" class="Image de {{recipe.title}}">
-        </a>
-      </div>
-      <div class="recipe-content">
-        <a href='/recipes/recipe/{{recipe.id}}'>
-          <p>{{recipe.title}}</p>
-        </a>
-      </div>
-      <div class="recipe-author">
-        <a href='/recipes/recipe/{{recipe.id}}'>
-          <p>
-            {% if recipe.chefs_name == null %}por Chef Anônimo{% endif %}
-            {% if recipe.chefs_name != null %}por {{recipe.chefs_name}}{% endif %}
-          </p>
-        </a>
-      </div>
-    </div>
-    {% endfor %}
+  {{recipesGrid.grid('', recipes)}}
+</section>
 
-    <div class="pagination" data-page={{pagination.page}} data-total={{pagination.total}} data-filter={{filter}}></div>
-  </div>
-  {% endblock %}
+{% endblock %}  

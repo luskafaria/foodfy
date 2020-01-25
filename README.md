@@ -41,7 +41,7 @@ Este projeto é uma representação teórica de um sistema de gerenciamento de s
 
 ## Modo de preparo
 
-Clone este repositório utilizando o download direto ou gitclone: 
+WORK IN PROGRESS
 
   
 ![gif](demo/8633-web-development.gif)

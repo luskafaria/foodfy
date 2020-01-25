@@ -138,7 +138,7 @@ module.exports = {
 
       if (!recipe) return res.send('Recipe not found!');
 
-      recipe.ingredients = recipe.ingredients.split(',');
+      recipe.ingredients = recipe.ingredients.split(',')
       recipe.ingredients = recipe.ingredients.filter(function (item) {
         return item != '';
       });
@@ -153,6 +153,9 @@ module.exports = {
         ...recipe,
         files
       }
+
+      console.log(recipe.ingredients.length);
+      
 
       res.render('admin/recipes/edit', {
         recipe,

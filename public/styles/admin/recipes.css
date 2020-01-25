@@ -201,3 +201,16 @@
 
   transition: 400ms;
 }
+
+.item .field-container div{
+  display: flex;
+  align-items: center; 
+}
+
+.item .field-container div span {
+  margin-left: 8px;
+  color: #DC4747;
+  background: none;
+  cursor: pointer;
+}
+

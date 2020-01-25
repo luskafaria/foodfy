@@ -35,7 +35,7 @@
   <div class='field-container'>
   {% for ingredient in recipe.ingredients %}
     <div>
-      <input type="text[]" name="ingredients" value='{{ingredient}}'>
+      <input type="text" name="ingredients" value='{{ingredient}}'>
     </div>
   {% endfor %}
   </div>
@@ -47,7 +47,7 @@
   {% for step in recipe.preparation %}
   <div class='field-container'>
     <div>
-      <input type="text[]" name="preparation" id="" value='{{step}}'>
+      <input type="text" name="preparation" id="" value='{{step}}'>
     </div>
   </div>
   {% endfor %}

@@ -29,9 +29,19 @@
 <div class="item" id='ingredients'>
   <div>Ingredientes</div>
   <div class='field-container'>
+    {%if recipe.id%}
+    {% for ingredient in recipe.ingredients%}
     <div>
-      <input type="text[]" name="ingredients" required="required" value='{{recipe.ingredients}}'>
+      <input type="text[]" name="ingredients" required="required" value='{{ingredient}}'>
+      <span onclick="addFields.remove(event)"><i class="material-icons">close</i></span>
     </div>
+    {% endfor %}
+    {%else%}
+    <div>
+      <input type="text[]" name="ingredients" required="required" value='{{ingredient}}'>
+      <span onclick="addFields.remove(event)"><i class="material-icons">close</i></span>
+    </div>
+    {%endif%}
   </div>
   <a class='add-field add-ingredient' onclick='addFields.add(event)'>Adicionar novo ingrediente</a>
 </div>
@@ -40,9 +50,19 @@
 <div class="item" id='preparation'>
   <div>Modo de preparo</div>
   <div class='field-container'>
+   {%if recipe.id%}
+     {% for step in recipe.preparation %}
     <div>
-      <input type="text[]" name="preparation" required="required" value='{{recipe.preparation}}'>
+      <input type="text[]" name="preparation" required="required" value='{{step}}'>
+      <span onclick="addFields.remove(event)"><i class="material-icons">close</i></span>
     </div>
+    {% endfor %}
+   {%else%}
+    <div>
+      <input type="text[]" name="preparation" required="required" value='{{step}}'>
+      <span onclick="addFields.remove(event)"><i class="material-icons">close</i></span>
+    </div>
+   {%endif%}
   </div>
   <a class='add-field add-preparation' onclick='addFields.add(event)'>Adicionar novo passo</a>
 </div>

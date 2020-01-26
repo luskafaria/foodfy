@@ -22,6 +22,20 @@
 </div>
 
 <div class="item">
+  <div>Escolha um Chef</div>
+  <div>
+    <select name="chefId">
+      {% for chef in chefsList %}
+      <option value="{{chef.id}}" {% if chef.id == recipe.chef_id %}selected{% endif %}>
+        {{chef.name}}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+
+<div class="item">
   <div>Título da receita</div>
   <div><input type="text" name="title" required="required" value='{{recipe.title}}'></div>
 </div>
@@ -50,19 +64,19 @@
 <div class="item" id='preparation'>
   <div>Modo de preparo</div>
   <div class='field-container'>
-   {%if recipe.id%}
-     {% for step in recipe.preparation %}
+    {%if recipe.id%}
+    {% for step in recipe.preparation %}
     <div>
       <input type="text[]" name="preparation" required="required" value='{{step}}'>
       <span onclick="addFields.remove(event)"><i class="material-icons">close</i></span>
     </div>
     {% endfor %}
-   {%else%}
+    {%else%}
     <div>
       <input type="text[]" name="preparation" required="required" value='{{step}}'>
       <span onclick="addFields.remove(event)"><i class="material-icons">close</i></span>
     </div>
-   {%endif%}
+    {%endif%}
   </div>
   <a class='add-field add-preparation' onclick='addFields.add(event)'>Adicionar novo passo</a>
 </div>

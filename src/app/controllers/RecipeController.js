@@ -1,5 +1,6 @@
 const Recipe = require('../models/Recipe');
 const File = require('../models/File');
+const Chef = require('../models/Chef');
 
 async function createRecipesList(req, res) {
   let recipes = await Recipe.findAll()
@@ -47,8 +48,13 @@ module.exports = {
       recipes: recipesList,
     })
   },
-  create(req, res) {
-    res.render('admin/recipes/create');
+  async create(req, res) {
+
+    let chefsList = await Chef.findAll()
+
+    res.render('admin/recipes/create', {
+      chefsList
+    });
   },
   async post(req, res) {
 
@@ -65,11 +71,11 @@ module.exports = {
       path: `/images/${file.filename}`
     }))
 
-    const filesIds = await Promise.all(filesPromise)
+    const filesIds = await Promise.all(filesPromise)  
 
     let recipe = {
-      user_id: req.body.user_id || 1,
-      chef_id: req.body.chef_id || 1,
+      user_id: req.session.userId,
+      chef_id: req.body.chefId,
       title: req.body.title,
       ingredients: req.body.ingredients.toString(),
       preparation: req.body.preparation.toString(),
@@ -154,11 +160,11 @@ module.exports = {
         files
       }
 
-      console.log(recipe.ingredients.length);
-      
+      let chefsList = await Chef.findAll()
 
-      res.render('admin/recipes/edit', {
+        res.render('admin/recipes/edit', {
         recipe,
+        chefsList
       });
     } catch (err) {
       console.log(err);
@@ -213,6 +219,7 @@ module.exports = {
 
       const values = [
         req.body.title,
+        req.body.chefId,
         req.body.ingredients.toString(),
         req.body.preparation.toString(),
         req.body.information,

@@ -59,8 +59,6 @@ module.exports = {
 
       const userId = await User.create(user)
 
-      req.session.userId = userId
-
       // criar uma mensagem de cadastro realizado com sucesso
 
       return res.redirect(`/admin/users/${userId}`)
@@ -82,7 +80,7 @@ module.exports = {
       }
 
       function filterNotAdminUsers(user) {
-        return user.is_admin == true
+        return user.is_admin != true
       }
 
       usersList = usersList.filter(filterOtherUsers)

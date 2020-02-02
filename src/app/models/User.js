@@ -9,61 +9,6 @@ Base.init({
 
 module.exports = {
   ...Base,
-  async findAll() {
-    const results = await db.query(`
-      SELECT users.*
-      FROM users
-      `)
-
-    return results.rows
-
-  },
-  // async create(values) {
-  //   const query = `
-  //   INSERT INTO users (
-  //     name,
-  //     email,
-  //     password,
-  //     is_admin
-  //   ) VALUES ($1, $2, $3, $4)
-  //   RETURNING id
-  //   `;
-
-  //   const results = await db.query(query, values)
-  //   return results.rows[0].id
-  // },
-  // async findOne(filters, table) {
-  //   try {
-  //     const results = await find(filters, table)
-
-  //     return results.rows[0]
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // },
-  async findChefRecipes(chefId) {
-    const results = await db.query(`
-    SELECT recipes.*, chefs.name AS author
-    FROM recipes
-    LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-    WHERE chefs.id=$1
-    ORDER BY created_at DESC
-    `, [chefId])
-
-    return results.rows
-  },
-  // async update(values) {
-
-  //   const query = `
-  //   UPDATE users SET
-  //   name=($1),
-  //   email=($2)
-  //   WHERE id = $3
-  //   `;
-
-  //   const results = await db.query(query, values)
-  //   return results.rows
-  // },
   async delete(id) {
     try {
 

@@ -13,7 +13,7 @@ function find(filters, table) {
         query += ` ${field} = '${filters[key][field]}'`
       })
     })
-  }  
+  }
 
   return db.query(query)
 }
@@ -79,13 +79,36 @@ const Base = {
   async findOne(filters) {
     try {
       const results = await find(filters, this.table)
-      
+
       return results.rows[0]
     } catch (err) {
       console.error(err);
     }
   },
- 
+  async findAll(filters) {
+    try {
+      const results = await find(filters, this.table)
+
+      return results.rows
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  async findChefRecipes(chefId) {
+    try {
+      const results = await db.query(`
+    SELECT recipes.*, chefs.name AS author
+    FROM recipes
+    LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+    WHERE chefs.id=$1
+    ORDER BY created_at DESC
+    `, [chefId])
+
+      return results.rows
+    } catch (err) {
+      console.log(err)
+    }
+  },
 }
 
 module.exports = Base

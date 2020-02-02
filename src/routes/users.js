@@ -6,6 +6,7 @@ const SessionController = require('../app/controllers/SessionController')
 
 const UserValidator = require('../app/validators/user')
 const SessionValidator = require('../app/validators/session')
+const FieldsValidator = require('../app/validators/fields')
 
 const {
   onlyUsers,
@@ -30,8 +31,8 @@ routes.get('/create', onlyUsers, isAdmin, UserController.create)
 routes.get('/:id', onlyUsers, UserController.show) //Mostrar os detalhes do usuário
 
 routes.get('/', onlyUsers, UserController.list) //Mostrar a lista de usuários cadastrados
-routes.post('/', onlyUsers, isAdmin, UserValidator.post, UserController.post) //Cadastrar um usuário
-routes.put('/', onlyUsers, UserValidator.isItMeIsAdminVerification, UserValidator.passwordMatch, UserValidator.put, UserController.put) // Editar um usuário
+routes.post('/', onlyUsers, isAdmin, FieldsValidator.isFilled, UserController.post) //Cadastrar um usuário
+routes.put('/', onlyUsers, UserValidator.isItMeIsAdminVerification, UserValidator.passwordMatch, FieldsValidator.isFilled, UserController.put) // Editar um usuário
 routes.delete('/', onlyUsers, isAdmin, UserController.delete) // Deletar um usuário
 
 module.exports = routes

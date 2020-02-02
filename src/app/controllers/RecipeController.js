@@ -71,7 +71,7 @@ module.exports = {
       path: `/images/${file.filename}`
     }))
 
-    const filesIds = await Promise.all(filesPromise)  
+    const filesIds = await Promise.all(filesPromise)
 
     let recipe = {
       user_id: req.session.userId,
@@ -162,7 +162,7 @@ module.exports = {
 
       let chefsList = await Chef.findAll()
 
-        res.render('admin/recipes/edit', {
+      res.render('admin/recipes/edit', {
         recipe,
         chefsList
       });
@@ -173,14 +173,10 @@ module.exports = {
   },
   async put(req, res) {
     try {
-      // verificar se todos os campos estão preenchidos
-      const keys = Object.keys(req.body)
 
-      for (key of keys) {
-        if (req.body[key] == "" && key != "removed_files" && key != "author") {
-          return res.send('Please, fill all fields!')
-        }
-      }
+      const {
+        id
+      } = req.body
 
       // envio dos novos arquivos
       if (req.files.length != 0) {
@@ -217,16 +213,16 @@ module.exports = {
         await Promise.all(removedFilesPromise)
       }
 
-      const values = [
-        req.body.title,
-        req.body.chefId,
-        req.body.ingredients.toString(),
-        req.body.preparation.toString(),
-        req.body.information,
-        req.body.id,
-      ];
+      const values = {
+        title: req.body.title,
+        chef_id: req.body.chefId,
+        ingredients: req.body.ingredients.toString(),
+        preparation: req.body.preparation.toString(),
+        information: req.body.information,
+        
+      }
 
-      await Recipe.update(values)
+      await Recipe.update(id, values)
 
       req.session.success = 'Receita alterada com sucesso!'
 

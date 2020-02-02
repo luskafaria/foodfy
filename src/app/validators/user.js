@@ -4,58 +4,26 @@ const {
 
 const User = require('../models/User')
 
-
-async function post(req, res, next) {
-
-  const keys = Object.keys(req.body)
-
-  for (key of keys) {
-    if (req.body[key] == "" && req.body[key] != "is_admin") {
-      return res.send('Por favor, volte e preencha todos os campos.')
-    }
-  }
-
-  next()
-}
-
-function put(req, res, next) {
-  const keys = Object.keys(req.body)
-
-
-  for (key of keys) {
-    if (req.body[key] == "" && req.body[key] != "is_admin") {
-      return res.send('Por favor, volte e preencha todos os campos.')
-    }
-  }
-
-  next()
-}
-
 async function passwordMatch(req, res, next) {
 
   const {
     email,
     password,
-    id
   } = req.body
 
-  if (id == req.session.userId) {
-    async function checkPassword() {
-      const user = await User.findOne({
-        where: {
-          email
-        }
-      })
-
-      const passed = await compare(password, user.password)
-
-      if (!passed) return res.render('admin/index', {
-        user: req.body,
-        error: "Senha incorreta."
-      })
+  const user = await User.findOne({
+    where: {
+      email
     }
-  }
+  })
 
+  const passed = await compare(password, user.password)
+
+  if (!passed) {
+    req.session.error = 'Senha incorreta!'
+    return res.redirect('/admin/users/profile')
+  }
+  
   next()
 
 }
@@ -75,10 +43,6 @@ async function isItMeIsAdminVerification(req, res, next) {
 }
 
 module.exports = {
-
-  post,
-  put,
   passwordMatch,
   isItMeIsAdminVerification
-
 }

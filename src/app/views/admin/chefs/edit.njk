@@ -15,7 +15,9 @@
   <form id='form-edit' method='POST' action='/admin/chefs?_method=PUT' class="edit-wrapper"
     enctype="multipart/form-data">
 
-   {% include '../parts/chefs-fields.njk' %}
+    {% include '../parts/chefs-fields.njk' %}
+
+    <input type="hidden" name='id' value="{{chef.id}}">
 
   </form>
 
@@ -23,5 +25,5 @@
     <input type="hidden" name="file_id" value="{{chef.file_id}}">
     <input type="hidden" name="id" value="{{chef.id}}">
   </form>
-
-  {% endblock %}
+</div>
+{% endblock %}

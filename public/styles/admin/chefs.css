@@ -154,7 +154,7 @@ form .item #images-upload {
 
   display: block;
   overflow: hidden;
-
+  
   width: 149px;
 }
 
@@ -198,6 +198,7 @@ form .item #images-preview {
   grid-gap: 8px;
   width: 100%;
   margin: 8px 0;
+  align-items: center;
 }
 
 form .item #images-preview img {

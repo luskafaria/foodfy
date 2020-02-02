@@ -115,6 +115,10 @@ module.exports = {
   async put(req, res) {
     try {
 
+      const {
+        id
+      } = req.body
+
       if (req.files.length != 0) {
         File.init({
           table: 'files'
@@ -126,28 +130,23 @@ module.exports = {
 
         let fileId = await Promise.all(newFilesPromise)
 
-        let values = [
-          req.body.name,
-          JSON.parse(fileId),
-          req.body.id
-        ]
+        let values = {
+          name: req.body.name,
+          file_id: JSON.parse(fileId),
+        }
 
-        await Chef.update(values)
+        await Chef.update(id, values)
 
         await File.delete(req.body.file_id)
 
         return res.redirect(`/admin/chefs/${req.body.id}`)
       }
 
-      console.log(req.body);
-      
-      let values = [
-        req.body.name,
-        req.body.file_id,
-        req.body.id
-      ]
+      let values = {
+        name: req.body.name,
+      }
 
-      await Chef.update(values)
+      await Chef.update(id, values)
 
       return res.redirect(`/admin/chefs/${req.body.id}`)
     } catch (err) {

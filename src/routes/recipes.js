@@ -5,6 +5,7 @@ const multer = require('../app/middlewares/multer')
 const user = require('../app/middlewares/user')
 
 const RecipeController = require('../app/controllers/RecipeController')
+const FieldsValidator = require('../app/validators/fields')
 
 
 routes.get('/', RecipeController.listAll); // Mostrar a lista de receitas
@@ -13,8 +14,8 @@ routes.get('/create', RecipeController.create); // Mostrar formulário de nova r
 routes.get('/:id', RecipeController.show); // Exibir detalhes de uma receita
 routes.get('/:id/edit', user.verifyEditCredentials, RecipeController.edit); // Mostrar formulário de edição de receita
 
-routes.post('/', multer.array("images", 5), RecipeController.post); // Cadastrar nova receita
-routes.put('/', multer.array("images", 5), RecipeController.put); // Editar uma receita
+routes.post('/', FieldsValidator.isFilled, multer.array("images", 5), RecipeController.post); // Cadastrar nova receita
+routes.put('/', FieldsValidator.isFilled, multer.array("images", 5), RecipeController.put); // Editar uma receita
 routes.delete('/', RecipeController.delete); // Deletar uma receita
 
 module.exports = routes

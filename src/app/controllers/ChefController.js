@@ -21,10 +21,7 @@ module.exports = {
   },
   async post(req, res) {
     try {
-      if (req.files.length == 0) {
-        return res.send('Please, send at least one image')
-      }
-
+     
       File.init({
         table: 'files'
       })
@@ -38,10 +35,10 @@ module.exports = {
 
       let fileId = await Promise.all(filesPromise)
 
-      let values = [
-        req.body.name,
-        JSON.parse(fileId)
-      ]
+      let values = {
+        name: req.body.name,
+        file_id: JSON.parse(fileId)
+      }
 
       let chef = await Chef.create(values)
 

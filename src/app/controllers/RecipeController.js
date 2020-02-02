@@ -1,33 +1,14 @@
-const Recipe = require('../models/Recipe');
-const File = require('../models/File');
-const Chef = require('../models/Chef');
+const Recipe = require('../models/Recipe')
+const File = require('../models/File')
+const Chef = require('../models/Chef')
 
-async function createRecipesList(req, res) {
-  let recipes = await Recipe.findAll()
-
-  async function getImage(productId) {
-    let results = await Recipe.files(productId)
-
-    return results[0]
-  }
-
-  const recipesPromise = recipes.map(async recipe => {
-
-    recipe.file = await getImage(recipe.id)
-
-    return recipe
-  })
-
-  let recipesList = await Promise.all(recipesPromise)
-
-  return recipesList
-}
+const helper = require("../helpers/index")
 
 module.exports = {
 
   async listAll(req, res) {
 
-    let recipesList = await createRecipesList(req, res)
+    let recipesList = await helper.createRecipesList();
 
     return res.render("admin/recipes/list.njk", {
       recipes: recipesList,
@@ -35,14 +16,9 @@ module.exports = {
   },
   async listMyRecipes(req, res) {
 
-    let recipesList = await createRecipesList(req, res)
+    let recipesList = await helper.createRecipesList();
 
-    function filterMyRecipes(recipe) {
-
-      return recipe.user_id == req.session.userId
-    }
-
-    recipesList = recipesList.filter(filterMyRecipes)
+    recipesList = recipesList.filter(recipe => recipe.user_id == req.session.userId)
 
     return res.render("admin/recipes/list.njk", {
       recipes: recipesList,
@@ -57,10 +33,6 @@ module.exports = {
     });
   },
   async post(req, res) {
-
-    if (req.files.length == 0) {
-      return res.send('Please, send at least one image')
-    }
 
     File.init({
       table: 'files'
@@ -144,14 +116,12 @@ module.exports = {
 
       if (!recipe) return res.send('Recipe not found!');
 
-      recipe.ingredients = recipe.ingredients.split(',')
-      recipe.ingredients = recipe.ingredients.filter(function (item) {
-        return item != '';
-      });
-      recipe.preparation = recipe.preparation.split(',');
-      recipe.preparation = recipe.preparation.filter(function (item) {
-        return item != '';
-      });
+      recipe.ingredients = recipe.ingredients.split(',').filter(function (item) {
+        return item != ''
+      })
+      recipe.preparation = recipe.preparation.split(',').filter(function (item) {
+        return item != ''
+      })
 
       let files = await Recipe.files(req.params.id)
 
@@ -219,7 +189,7 @@ module.exports = {
         ingredients: req.body.ingredients.toString(),
         preparation: req.body.preparation.toString(),
         information: req.body.information,
-        
+
       }
 
       await Recipe.update(id, values)

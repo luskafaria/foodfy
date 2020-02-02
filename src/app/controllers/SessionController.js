@@ -66,7 +66,7 @@ module.exports = {
       `
       })
       //notify user
-
+      
       return res.render('admin/session/forgot-password.njk', {
         success: 'Verifique seu email para resertar sua senha!'
       })

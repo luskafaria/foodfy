@@ -34,15 +34,16 @@ module.exports = {
       }))
 
       let fileId = await Promise.all(filesPromise)
-
+      
       let values = {
         name: req.body.name,
         file_id: JSON.parse(fileId)
       }
 
-      let chef = await Chef.create(values)
+      let chefId = await Chef.create(values)
 
-      return res.redirect(`/admin/chefs/${chef.id}`);
+      
+      return res.redirect(`/admin/chefs/${chefId}`);
 
     } catch (err) {
       console.error(err);

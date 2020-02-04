@@ -68,7 +68,7 @@ module.exports = {
       //notify user
       
       return res.render('admin/session/forgot-password.njk', {
-        success: 'Verifique seu email para resertar sua senha!'
+        success: 'Verifique seu email para resetar sua senha!'
       })
     } catch (err) {
       console.error(err);

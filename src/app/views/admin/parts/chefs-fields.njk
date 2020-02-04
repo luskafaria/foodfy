@@ -11,8 +11,8 @@
         
         <div class="avatar-add-button">
           Enviar avatar
-          <input id="images-input" type="file" name="images" multiple accept="image/*"
-          onchange="ImagesUpload.handleFileInput(event)">
+          <input id="images-input" type="file" name="images" single accept="image/*"
+          onchange="ImagesUpload.handleFileInput(event, 1)">
         </div>
       </div>
       {% if files %}

@@ -76,15 +76,17 @@ const addFields = {
 const ImagesUpload = {
   input: "",
   preview: document.querySelector('#images-preview'),
-  uploadLimit: 5,
+  uploadLimit: "",
   files: [],
 
-  handleFileInput(event) {
+  handleFileInput(event, limit) {
     const {
       files: fileList
     } = event.target;
-
+    
     ImagesUpload.input = event.target
+
+    ImagesUpload.uploadLimit = limit    
 
     if (ImagesUpload.hasLimit(event)) return
 

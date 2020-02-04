@@ -7,7 +7,7 @@
       Usuários
     </h3>
 
-    <div class="edit-buttons"><a href="/admin/users/create" class="button">Novo</a></div>
+    {%if session.isAdmin %}<div class="edit-buttons"><a href="/admin/users/create" class="button">Novo</a></div>{%endif%}
   </header>
 
   <div class="users-grid">

@@ -25,7 +25,15 @@ const email = (userName, userEmail, userPassword) => `
 module.exports = {
   create(req, res) {
 
-    return res.render('admin/user/register.njk')
+    const error = req.session.error
+    req.session.error = ''
+
+    user = req.session.user
+
+    return res.render('admin/user/register.njk', {
+      error,
+      user
+    })
   },
   async post(req, res) {
     try {
@@ -71,7 +79,6 @@ module.exports = {
     try {
 
       // buscar usuários
-
       let usersList = await User.findAll();
 
 
@@ -84,7 +91,7 @@ module.exports = {
       }
 
       usersList = usersList.filter(filterOtherUsers)
-      usersList = usersList.filter(filterNotAdminUsers)
+      usersList = usersList.filter(filterNotAdminUsers)      
 
       // listar todos os usuários cadastrados no sistema
       return res.render('admin/user/users-list.njk', {

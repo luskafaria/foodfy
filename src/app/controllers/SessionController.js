@@ -67,9 +67,7 @@ module.exports = {
       })
       //notify user
       
-      return res.render('admin/session/forgot-password.njk', {
-        success: 'Verifique seu email para resetar sua senha!'
-      })
+      return res.render('admin/session/recover-sent-success.njk')
     } catch (err) {
       console.error(err);
       return res.render('admin/session/forgot-password.njk', {
@@ -104,9 +102,8 @@ module.exports = {
       })
       //avisa o usuário que a senha foi redefinida
 
-      return res.render('admin/session/login', {
+      return res.render('admin/session/new-password-success.njk', {
         user: req.body,
-        success: 'Senha atualizada com sucesso! Faça seu login.'
       })
 
     } catch (err) {

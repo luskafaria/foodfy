@@ -34,14 +34,22 @@ Este projeto é uma representação teórica de um sistema de gerenciamento de s
 
 ## Modo de preparo
 
-0) Copie este repositório como preferir: clone ou download.
-1) Adicione as credenciais de acesso ao banco de dados no arquivo src/app/config/db.js. Neste projeto utilizamos o PostgreSQL;
-2) Com cuidado, execute a rotina de população do banco de dados que está no arquivo seed.js;
-3) Adicione, caso ainda não exista, uma imagem de sua preferência à pasta public/images e utilize o nome 'placeholder.png'. Este arquivo será utilizado como imagem para todos os chefs e receitas da nossa apliação;
-4) Adicione node_modules à gosto utilizando o comando npm install. Em seguida, se o servidor já estiver preparado e funcionando, execute a aplicação com o comando npm init.
+0) Copie este repositório como preferir: clone ou download;
+1) No terminal, execute o comando npm install para instalar todas as dependências;
+2) Adicione as credenciais de acesso ao banco de dados no arquivo src/app/config/db.js. Neste projeto utilizamos o PostgreSQL;
+3) Com o banco de dados ativo, execute a rotina de população do banco de dados que está no arquivo seed.js;
+4) Adicione, caso ainda não exista, uma imagem de sua preferência à pasta public/images e utilize o nome 'placeholder.png'. Este arquivo será utilizado como imagem para todos os chefs e receitas da nossa apliação;
+5) Execute a aplicação com o comando npm start.
+
+## Observações
 
 Para acessar a área restrita basta escolher algum usuário na tabela 'users', copiar o endereço de e-mail e utilizar a senha padrão '1'.
+
 Para utilizar a função de recuperação de senha inclua a configuração do mailtrap no arquivo src/lib/mailer.js.
+
+Caso seu banco de dados já esteja populado e tenha a tabela foodfy criada, execute a rotina de higienização que se encontra no arquivo foodfydb.sql com a tag --to run seeds.
+
+Atenção ao excluir usuários e chefs pois estamos utilizando o mesmo placeholder para os avatares e imagens de receitas. Lembre-se de criar um novo arquivo com o nome 'placeholder.png' na pasta public/images sempre que excluir um chef ou receita.
 
 Rende infinitas porções. :hearth:
 

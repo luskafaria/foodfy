@@ -19,13 +19,6 @@ FOODFY
   </a>
 </p>
 
-[//]: # (Add your gifs/images here:)
-
-<div>
-  <gif src="demo/8633-web-development.gif" alt="demo" height="425">
-  <img src="" alt="demo" height="425">
-</div>
-
 <hr />
 
 ## Características

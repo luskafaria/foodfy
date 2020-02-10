@@ -11,11 +11,10 @@ const Recipe = require('./src/app/models/Recipe')
 const Base = require('./src/app/models/Base')
 
 let usersIds = []
-let recipesIds = []
 let totalUsers = 5
-let totalChefs = 3
-let totalFiles = 5
+let totalChefs = 4
 let totalRecipes = 20
+let totalFiles = totalChefs + totalRecipes
 
 async function createUsers() {
   const users = []
@@ -39,11 +38,11 @@ async function createUsers() {
 async function createChefs() {
   const chefs = []
 
-  while (chefs.length < totalChefs) {
+  for (let i = 1; chefs.length < totalChefs; i++) {
 
     chefs.push({
       name: faker.name.firstName(),
-      file_id: faker.random.number({min:1, max:totalChefs})
+      file_id: i
     })
   }
 
@@ -90,12 +89,14 @@ async function createRecipes() {
 
 async function createPivotTableRelations() {
   const relations = []
+  let recipesCount = 0
 
-  while (relations.length < totalRecipes) {
+  for (let i = totalChefs + 1; relations.length < totalRecipes; i++) {
+    recipesCount++
 
     relations.push({
-      recipe_id: recipesIds[Math.floor(Math.random() * totalRecipes)],
-      file_id: faker.random.number({min:totalChefs+1, max:totalFiles})
+      recipe_id: recipesCount,
+      file_id: i
     })
   }
 

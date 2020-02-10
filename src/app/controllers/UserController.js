@@ -91,7 +91,7 @@ module.exports = {
       }
 
       usersList = usersList.filter(filterOtherUsers)
-      usersList = usersList.filter(filterNotAdminUsers)      
+      usersList = usersList.filter(filterNotAdminUsers)
 
       // listar todos os usuários cadastrados no sistema
       return res.render('admin/user/users-list.njk', {
@@ -172,8 +172,8 @@ module.exports = {
       let user = {
         name: req.body.name,
         email: req.body.email,
-        is_admin: req.body.is_admin || 1
-      }
+        is_admin: req.body.is_admin || 0
+      }      
 
       await User.update(id, user)
 

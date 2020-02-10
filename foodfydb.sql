@@ -1,6 +1,20 @@
 DROP DATABASE IF EXISTS foodfy;
 CREATE DATABASE foodfy;
 
+-- to run seeds
+DELETE FROM users;
+DELETE FROM chefs;
+DELETE FROM recipes;
+DELETE FROM files;
+DELETE FROM recipe_files;
+
+-- restart sequence auto_increment from tales ids
+ALTER SEQUENCE chefs_id_seq RESTART WITH 1;
+ALTER SEQUENCE recipes_id_seq RESTART WITH 1;
+ALTER SEQUENCE files_id_seq RESTART WITH 1;
+ALTER SEQUENCE recipe_files_id_seq RESTART WITH 1;
+ALTER SEQUENCE users_id_seq RESTART WITH 1;
+
 CREATE TABLE "users" (
 "id" SERIAL PRIMARY KEY,
 "name" TEXT NOT NULL,
@@ -98,14 +112,6 @@ CREATE TRIGGER delete_recipe_files
 AFTER DELETE ON recipe_files
 FOR EACH ROW
 EXECUTE PROCEDURE delete_files_when_recipe_files_row_was_deleted();
-
--- to run seeds
-DELETE FROM chefs;
-DELETE FROM recipes;
-
--- restart sequence auto_increment from tales ids
-ALTER SEQUENCE chefs_id_seq RESTART WITH 1;
-ALTER SEQUENCE recipes_id_seq RESTART WITH 1;
 
 -- DELETE CASCADE
 ALTER TABLE "recipe_files"

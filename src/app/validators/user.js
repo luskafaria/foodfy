@@ -4,45 +4,57 @@ const {
 
 const User = require('../models/User')
 
-async function passwordMatch(req, res, next) {
+async function putPasswordMatch(req, res, next) {
+  try {
 
-  const {
-    email,
-    password,
-  } = req.body
+    req.body.id != req.session.userId ? next() : passwordVerification()
 
-  const user = await User.findOne({
-    where: {
-      email
+    async function passwordVerification() {
+      const {
+        email,
+        password,
+      } = req.body
+
+      const user = await User.findOne({
+        where: {
+          email
+        }
+      })
+
+      const passed = await compare(password, user.password)
+
+      if (!passed) {
+        req.session.error = 'Senha incorreta!'
+        return res.redirect('/admin/users/profile')
+      }
+
+      next()
     }
-  })
 
-  const passed = await compare(password, user.password)
-
-  if (!passed) {
-    req.session.error = 'Senha incorreta!'
-    return res.redirect('/admin/users/profile')
+  } catch (err) {
+    console.log(err)
   }
-  
-  next()
-
 }
 
 async function isItMeIsAdminVerification(req, res, next) {
 
-  function itsNotUser() {
-    
-    req.session.error = 'Desculpe! Apenas administradores podem realizar essa ação.'
-    return res.redirect('/admin/users/profile')
-  }
+  try {
+    function itsNotUser() {
 
-  (req.body.id == req.session.userId) ? next():
-    req.session.isAdmin == true ? next() :
-    itsNotUser()
+      req.session.error = 'Desculpe! Apenas administradores podem realizar essa ação.'
+      return res.redirect('/admin/users/profile')
+    }
+
+    (req.body.id == req.session.userId) ? next():
+      req.session.isAdmin == true ? next() :
+      itsNotUser()
+  } catch (err) {
+    console.log(err)
+  }
 
 }
 
 module.exports = {
-  passwordMatch,
-  isItMeIsAdminVerification
+  isItMeIsAdminVerification,
+  putPasswordMatch
 }

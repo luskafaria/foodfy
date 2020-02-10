@@ -115,7 +115,6 @@ module.exports = {
 
         const recipesList = await Promise.all(recipesPromise)
 
-
         return res.render('site/recipes', {
           recipes: recipesList,
         })

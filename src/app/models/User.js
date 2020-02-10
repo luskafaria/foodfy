@@ -9,6 +9,24 @@ Base.init({
 
 module.exports = {
   ...Base,
+  async update(id, user) {
+    const query =
+      `
+      UPDATE users SET
+      name=($1),
+      email=($2),
+      is_admin=($3)
+      WHERE id =($4)
+      `
+      const values = [
+        user.name,
+        user.email,
+        user.is_admin,
+        id
+      ]      
+
+    db.query(query, values)
+  },
   async delete(id) {
     try {
 

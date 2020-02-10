@@ -8,7 +8,7 @@ module.exports = {
 
   async listAll(req, res) {
 
-    let recipesList = await helper.createRecipesList();
+    let recipesList = await helper.createRecipesList();    
 
     return res.render("admin/recipes/list.njk", {
       recipes: recipesList,

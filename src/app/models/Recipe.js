@@ -59,31 +59,32 @@ module.exports = {
   },
   async delete(id) {
     try {
-
-      //deletar a receita
-      await db.query(`
-    DELETE FROM recipes
-    WHERE id = $1
-    `, [id])
-
       // pegar todos os arquivos
       const results = await db.query(
         `
-    SELECT files.*, recipe_id, file_id
-    FROM files
-    LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
-    WHERE recipe_files.recipe_id = $1
-    `, [id]
+        SELECT files.*, recipe_id, file_id
+        FROM files
+        LEFT JOIN recipe_files ON (files.id = recipe_files.file_id)
+        WHERE recipe_files.recipe_id = $1
+          `, [id]
       )
       const files = results.rows
+
+      //deletar a receita
+      await db.query(
+        `
+        DELETE FROM recipes
+        WHERE id = $1
+        `, [id])
 
       // deletar todos os arquivos
       files.map(async file => {
         fs.unlinkSync(`public/${file.path}`)
-        await db.query(`
-      DELETE FROM files
-      WHERE id = $1
-      `, [file.id])
+        await db.query(
+        `
+          DELETE FROM files
+          WHERE id = $1
+        `, [file.id])
       })
 
       return

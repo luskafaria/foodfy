@@ -42,12 +42,13 @@ Este projeto é uma representação teórica de um sistema de gerenciamento de s
 ## Modo de preparo
 
 0) Copie este repositório como preferir: clone ou download.
-1) Adicione as credenciais de acesso ao banco de dados no arquivo src/app/config/db.js. Neste projeto utilizado o PostgreSQL;
-2) Com cuidado, execute a rotina de população do banco de dados que está no arquivo seed.js.
-3) Adicione uma imagem de sua preferência à pasta public/imagens e utilize o nome 'placeholder.png'. Este arquivo será utilizado como imagem para todos os chefs e receitas da nossa apliação;
+1) Adicione as credenciais de acesso ao banco de dados no arquivo src/app/config/db.js. Neste projeto utilizamos o PostgreSQL;
+2) Com cuidado, execute a rotina de população do banco de dados que está no arquivo seed.js;
+3) Adicione, caso ainda não exista, uma imagem de sua preferência à pasta public/images e utilize o nome 'placeholder.png'. Este arquivo será utilizado como imagem para todos os chefs e receitas da nossa apliação;
 4) Adicione node_modules à gosto utilizando o comando npm install. Em seguida, se o servidor já estiver preparado e funcionando, execute a aplicação com o comando npm init.
 
 Para acessar a área restrita basta escolher algum usuário na tabela 'users', copiar o endereço de e-mail e utilizar a senha padrão '1'.
+Para utilizar a função de recuperação de senha inclua a configuração do mailtrap no arquivo src/lib/mailer.js.
 
 Rende infinitas porções. :hearth:
 

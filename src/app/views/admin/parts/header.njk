@@ -3,7 +3,17 @@
     <div class="header-logo">
       <a href="/home"><img src="/assets/logo2.png" alt="Foodfy logo"></a>
     </div>
+    
     <div class="header-nav">
+    {% if session.userId %}
+      <div class="menu-drop">
+        <p name="drop">Minha conta</p>
+        <div class="drop-content">
+          <a href="/admin/users/profile">Profile</a>
+        </div>
+      </div>
+      {% endif %}
+      
       <div class="menu-drop">
         <p name="drop">Receitas</p>
         <div class="drop-content">
@@ -17,7 +27,7 @@
         <p name="drop">Chefs</p>
         <div class="drop-content">
           <a href="/admin/chefs">Listar</a>
-          {% if session.isAdmin === true %}
+          {% if session.isAdmin == true %}
           <a href="/admin/chefs/create">Criar</a>
           {% endif %}
         </div>
@@ -27,20 +37,12 @@
         <p name="drop">Usuários</p>
         <div class="drop-content">
           <a href="/admin/users">Listar</a>
-          {% if session.isAdmin === true %}
+          {% if session.isAdmin == true %}
           <a href="/admin/users/create">Criar</a>
           {% endif %}
         </div>
       </div>
 
-      {% if session.userId %}
-      <div class="menu-drop">
-        <p name="drop">Minha conta</p>
-        <div class="drop-content">
-          <a href="/admin/users/profile">Profile</a>
-        </div>
-      </div>
-      {% endif %}
     </div>
   </div>
 

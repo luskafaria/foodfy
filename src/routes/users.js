@@ -29,7 +29,7 @@ routes.get('/:id', onlyUsers, isAdmin,UserController.show)
 
 routes.get('/', onlyUsers, UserController.list) 
 routes.post('/', onlyUsers, isAdmin, FieldsValidator.isFilled, UserController.post) 
-routes.put('/', onlyUsers, UserValidator.isItMeIsAdminVerification, UserValidator.putPasswordMatch, FieldsValidator.isFilled, UserController.put) // Editar um usuário
+routes.put('/', onlyUsers, UserValidator.isItMeIsAdminVerification, UserValidator.putPasswordMatch, FieldsValidator.isFilled, UserController.put)
 routes.delete('/', onlyUsers, isAdmin, UserController.delete)
 
 module.exports = routes

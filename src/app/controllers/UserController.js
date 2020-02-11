@@ -156,9 +156,13 @@ module.exports = {
       const error = req.session.error
       req.session.error = ""
 
+      const success = req.session.success
+      req.session.success = ""
+
       return res.render('admin/index.njk', {
         user,
-        error
+        error,
+        success
       })
 
     } catch (err) {
@@ -180,16 +184,10 @@ module.exports = {
 
       await User.put(id, user)
 
-      if (req.session.userId == req.body.id)
-        return res.render('admin/index.njk', {
-          user: {
-            ...user,
-            firstName: user.name.split(" ")[0],
-            id: req.body.id
-          },
-          success: 'Conta atualizada com sucesso!'
-        })
-
+      if (req.session.userId == req.body.id) {
+        req.session.success = 'Cadastro atualizado com sucesso!'
+        return res.redirect('/admin/users/profile')
+      }
       return res.render('admin/user/edit.njk', {
         user: {
           ...user,

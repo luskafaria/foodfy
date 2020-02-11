@@ -94,7 +94,7 @@ async function reset(req, res, next) {
   //verificar se o token bate
   if (token != user.reset_token) {
     return res.render('admin/session/password-reset.njk', {
-      user: body,
+      user: req.body,
       token,
       error: 'Token inválido. Solicite uma nova recuperação de senha.'
     })
@@ -105,7 +105,7 @@ async function reset(req, res, next) {
 
   if (now > user.reset_token_expires) {
     return res.render('admin/session/password-reset.njk', {
-      user: body,
+      user: req.body,
       token,
       error: 'Token expirado. Solicite uma nova recuperação de senha.'
     })

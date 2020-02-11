@@ -51,6 +51,9 @@ module.exports = {
   },
   async show(req, res) {
     try {
+      const error = req.session.error
+      req.session.error = ''
+
       const chefId = req.params.id
 
       let chef = await Chef.findOne(chefId)
@@ -82,7 +85,8 @@ module.exports = {
 
       return res.render('admin/chefs/show', {
         chef,
-        recipes: recipesList
+        recipes: recipesList,
+        error
       })
     } catch (err) {
       console.error(err);

@@ -18,7 +18,7 @@ function isAdmin (req, res, next) {
 
   if(!req.session.isAdmin) {
     req.session.error = 'Desculpe! Apenas administradores podem acessar essa funcionalidade.'
-    return res.redirect('/admin/users/profile')
+    return res.redirect(`${req.headers.referer}`)
   }
 
   next()

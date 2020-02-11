@@ -6,7 +6,7 @@ async function verifyEditCredentials(req, res, next) {
 
   function itsNotAdmin() {
     req.session.error = 'Você não tem autorização para editar as receitas de outros usuários.'
-    res.redirect(`/admin/recipes/${req.params.id}`);
+    res.redirect(`${req.headers.referer}`);
 
     return
   }

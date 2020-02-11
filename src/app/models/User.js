@@ -9,7 +9,7 @@ Base.init({
 
 module.exports = {
   ...Base,
-  async update(id, user) {
+  async put(id, user) {
     const query =
       `
       UPDATE users SET

@@ -77,6 +77,8 @@ module.exports = {
   },
   async list(req, res) {
     try {
+      const error = req.session.error
+      req.session.error = ''
 
       // buscar usuários
       let usersList = await User.findAll();
@@ -95,7 +97,8 @@ module.exports = {
 
       // listar todos os usuários cadastrados no sistema
       return res.render('admin/user/users-list.njk', {
-        users: usersList
+        users: usersList,
+        error
       })
 
     } catch (err) {
@@ -104,7 +107,7 @@ module.exports = {
   },
   async show(req, res) {
     try {
-
+      
       const {
         id
       } = req.params
@@ -175,7 +178,7 @@ module.exports = {
         is_admin: req.body.is_admin || 0
       }      
 
-      await User.update(id, user)
+      await User.put(id, user)
 
       if (req.session.userId == req.body.id)
         return res.render('admin/index.njk', {

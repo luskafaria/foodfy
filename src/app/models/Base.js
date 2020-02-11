@@ -50,7 +50,7 @@ const Base = {
 
       return results.rows[0].id
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
   },
   async update(id, fields) {
@@ -58,7 +58,6 @@ const Base = {
 
       let update = []
 
-      //category_id=($1),
 
       Object.keys(fields).map(key => {
 
@@ -70,13 +69,10 @@ const Base = {
       let query = `UPDATE ${this.table} SET
       ${update.join(',')} WHERE id = ${id}
       `
-
-      console.log(query);
-
       return db.query(query)
 
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
   },
   async findOne(filters) {
@@ -85,7 +81,7 @@ const Base = {
 
       return results.rows[0]
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
   },
   async findAll(filters) {
@@ -94,7 +90,7 @@ const Base = {
 
       return results.rows
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
   },
   async findChefRecipes(chefId) {
@@ -109,7 +105,7 @@ const Base = {
 
       return results.rows
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   },
 }

@@ -1,12 +1,12 @@
-const Recipe = require('../models/Recipe');
+const Recipe = require('../models/Recipe')
 const Chef = require('../models/Chef')
 
 module.exports = {
   index(req, res) {
-    return res.redirect('/home');
+    return res.redirect('/home')
   },
   about(req, res) {
-    return res.render('site/about');
+    return res.render('site/about')
   },
   async home(req, res) {
     try {
@@ -29,7 +29,7 @@ module.exports = {
 
       return res.render('site/home', {
         recipes: recipesList
-      });
+      })
     } catch (err) {
       console.error(err)
     }
@@ -39,18 +39,18 @@ module.exports = {
 
       const recipeId = req.params.id
 
-      let recipe = await Recipe.findOne(recipeId);
+      let recipe = await Recipe.findOne(recipeId)
 
-      if (!recipe) return res.send('Recipe not found!');
+      if (!recipe) return res.send('Recipe not found!')
 
-      recipe.ingredients = recipe.ingredients.split(',');
+      recipe.ingredients = recipe.ingredients.split(',')
       recipe.ingredients = recipe.ingredients.filter(function (item) {
-        return item !== '';
-      });
-      recipe.preparation = recipe.preparation.split(',');
+        return item !== ''
+      })
+      recipe.preparation = recipe.preparation.split(',')
       recipe.preparation = recipe.preparation.filter(function (item) {
-        return item !== '';
-      });
+        return item !== ''
+      })
 
       let files = await Recipe.files(recipeId)
 
@@ -72,7 +72,7 @@ module.exports = {
 
       let {
         filter,
-      } = req.query;
+      } = req.query
 
       if (filter) {
         let searchResults = await Recipe.findBy(filter)

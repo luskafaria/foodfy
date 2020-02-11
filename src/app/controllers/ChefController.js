@@ -10,14 +10,14 @@ module.exports = {
 
       return res.render("admin/chefs/chefs", {
         chefs
-      });
+      })
     } catch (err) {
-      console.error(err);
+      console.error(err)
 
     }
   },
   create(req, res) {
-    res.render('admin/chefs/create');
+    res.render('admin/chefs/create')
   },
   async post(req, res) {
     try {
@@ -43,10 +43,10 @@ module.exports = {
       let chefId = await Chef.create(values)
 
       
-      return res.redirect(`/admin/chefs/${chefId}`);
+      return res.redirect(`/admin/chefs/${chefId}`)
 
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
   },
   async show(req, res) {
@@ -89,7 +89,7 @@ module.exports = {
         error
       })
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
   },
   async edit(req, res) {
@@ -100,7 +100,7 @@ module.exports = {
       let chef = await Chef.findOne(chefId)
 
       if (!chef) {
-        return res.send('Chef not found!');
+        return res.send('Chef not found!')
       }
 
       const files = await Chef.files(chefId)
@@ -152,7 +152,7 @@ module.exports = {
 
       return res.redirect(`/admin/chefs/${req.body.id}`)
     } catch (err) {
-      console.error(err);
+      console.error(err)
 
     }
   },

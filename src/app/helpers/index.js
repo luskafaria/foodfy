@@ -21,7 +21,7 @@ const Recipe = require('../models/Recipe')
   
     return recipesList
    } catch (err) {
-     console.log(err)
+     console.error(err)
    }
   }
 

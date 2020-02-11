@@ -18,7 +18,7 @@ const email = (userName, userEmail, userPassword) => `
 <p>Seu acesso está habilitado para criar novas receitas e atribuí-las aos seus devidos Chefs.</p>
 <p>Você também pode visualizar todas as receitas cadastradas por você, bem como a lista de todos os Chefs disponíveis.</p>
 <p></br></br></p>
-<p>Para validar sua conta, faça o primeiro acesso clicando <a href="http://localhost.3000/admin/login"><strong>aqui</strong></a></p> 
+<p>Para validar sua conta, faça o primeiro acesso clicando <a href="http://localhost:3000/admin/users/login"><strong>aqui</strong></a></p> 
 
 `
 
@@ -29,6 +29,7 @@ module.exports = {
     req.session.error = ''
 
     user = req.session.user
+    req.session.user = ''
 
     return res.render('admin/user/register.njk', {
       error,
@@ -38,11 +39,7 @@ module.exports = {
   async post(req, res) {
     try {
 
-      // criar uma senha aleatória       
-
       const password = randomPassword(8)
-
-      // enviar a senha para o e-mail do usuário
 
       await mailer.sendMail({
         to: req.body.email,
@@ -51,11 +48,7 @@ module.exports = {
         html: email(req.body.name, req.body.email, password)
       })
 
-      // criar o hash da senha
-
       const passwordHash = await hash(password, 8)
-
-      // cadastrar o usuário
 
       const user = {
         name: req.body.name,
@@ -64,10 +57,7 @@ module.exports = {
         is_admin: req.body.is_admin || 0
       }
 
-
       const userId = await User.create(user)
-
-      // criar uma mensagem de cadastro realizado com sucesso
 
       return res.redirect(`/admin/users/${userId}`)
 
@@ -80,9 +70,7 @@ module.exports = {
       const error = req.session.error
       req.session.error = ''
 
-      // buscar usuários
-      let usersList = await User.findAll();
-
+      let usersList = await User.findAll()
 
       function filterOtherUsers(user) {
         return user.id != req.session.userId
@@ -95,7 +83,6 @@ module.exports = {
       usersList = usersList.filter(filterOtherUsers)
       usersList = usersList.filter(filterNotAdminUsers)
 
-      // listar todos os usuários cadastrados no sistema
       return res.render('admin/user/users-list.njk', {
         users: usersList,
         error
@@ -112,12 +99,11 @@ module.exports = {
         id
       } = req.params
 
-      // buscar usuário
       let user = await User.findOne({
         where: {
           id
         }
-      });
+      })
 
       user = {
         ...user,
@@ -139,12 +125,11 @@ module.exports = {
         userId: id
       } = req.session
 
-      // buscar usuário
       let user = await User.findOne({
         where: {
           id
         }
-      }, 'users');
+      }, 'users')
 
       firstName = user.name.split(" ")[0]
 

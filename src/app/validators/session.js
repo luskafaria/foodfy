@@ -3,7 +3,6 @@ const {
   compare
 } = require('bcryptjs')
 
-
 async function login(req, res, next) {
 
   const {
@@ -62,7 +61,6 @@ async function forgot(req, res, next) {
 
 async function reset(req, res, next) {
 
-  //procurar usuario
   const {
     email,
     password,
@@ -82,7 +80,6 @@ async function reset(req, res, next) {
     error: 'Usuário não cadastrado.'
   })
 
-  //ver se a senha bate
   if (password !== passwordRepeat) {
     return res.render('admin/session/password-reset.njk', {
       user: req.body,
@@ -91,7 +88,6 @@ async function reset(req, res, next) {
     })
   }
 
-  //verificar se o token bate
   if (token != user.reset_token) {
     return res.render('admin/session/password-reset.njk', {
       user: req.body,
@@ -99,7 +95,6 @@ async function reset(req, res, next) {
       error: 'Token inválido. Solicite uma nova recuperação de senha.'
     })
   }
-  //verificar se o token não expirou
   let now = new Date()
   now = now.setHours(now.getHours())
 

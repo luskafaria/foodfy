@@ -1,4 +1,4 @@
-const db = require('../../app/config/db');
+const db = require('../../app/config/db')
 
 const Base = require('./Base')
 
@@ -14,11 +14,12 @@ module.exports = {
       SELECT chefs.*, files.path as file
       FROM chefs
       LEFT JOIN files ON (chefs.file_id = files.id)
+      ORDER BY updated_at DESC
       `)
 
       return results.rows
     } catch (err) {
-      console.log(err);
+      console.error(err)
 
     }
   },
@@ -32,11 +33,11 @@ module.exports = {
         WHERE chefs.id = $1
         GROUP BY chefs.id
       `,
-        [id]);
+        [id])
 
       return results.rows[0]
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   },
   async delete(id) {
@@ -45,7 +46,7 @@ module.exports = {
       await db.query(`
     DELETE FROM chefs
     WHERE id = $1
-    `, [id]);
+    `, [id])
 
       const results = await db.query(`
     SELECT files.*
@@ -65,7 +66,7 @@ module.exports = {
 
       })
     } catch (err) {
-      console.log(err);
+      console.error(err)
 
     }
   },
@@ -81,7 +82,7 @@ module.exports = {
       )
       return results.rows
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   },
-};
+}

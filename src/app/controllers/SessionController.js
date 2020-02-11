@@ -34,11 +34,8 @@ module.exports = {
           email: req.body.email
         }
       })
-      //user token
 
       const token = crypto.randomBytes(20).toString('hex')
-
-      //create a token duration
 
       let now = new Date()
       now = now.setHours(now.getHours() + 1)
@@ -48,7 +45,6 @@ module.exports = {
         reset_token_expires: now
       })
 
-      //send a link to password change
       await mailer.sendMail({
         to: user.email,
         from: 'no-reply@launchstore.com.br',
@@ -64,11 +60,10 @@ module.exports = {
 
       `
       })
-      //notify user
       
       return res.render('admin/session/recover-sent-success.njk')
     } catch (err) {
-      console.error(err);
+      console.error(err)
       return res.render('admin/session/forgot-password.njk', {
         error: 'Ocorreu algum erro.'
       })
@@ -90,23 +85,20 @@ module.exports = {
 
     try {
 
-      //novo hash de senha
       const newPassword = await hash(password, 8)
 
-      //atualiza o usuário
       await User.update(user.id, {
         password: newPassword,
         reset_token: '',
         reset_token_expires: '',
       })
-      //avisa o usuário que a senha foi redefinida
 
       return res.render('admin/session/new-password-success.njk', {
         user: req.body,
       })
 
     } catch (err) {
-      console.error(err);
+      console.error(err)
       return res.render('admin/session/password-reset', {
         user: req.body,
         token,

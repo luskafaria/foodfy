@@ -1,5 +1,5 @@
-const express = require('express');
-const routes = express.Router();
+const express = require('express')
+const routes = express.Router()
 
 const multer = require('../app/middlewares/multer')
 const user = require('../app/middlewares/user')
@@ -8,14 +8,14 @@ const RecipeController = require('../app/controllers/RecipeController')
 const FieldsValidator = require('../app/validators/fields')
 
 
-routes.get('/', RecipeController.listAll); // Mostrar a lista de receitas
-routes.get('/dashboard', RecipeController.listMyRecipes); // Mostrar apenas as receitas do usuário logado
-routes.get('/create', RecipeController.create); // Mostrar formulário de nova receita
-routes.get('/:id', RecipeController.show); // Exibir detalhes de uma receita
-routes.get('/:id/edit', user.verifyEditCredentials, RecipeController.edit); // Mostrar formulário de edição de receita
+routes.get('/', RecipeController.listAll)
+routes.get('/dashboard', RecipeController.listMyRecipes)
+routes.get('/create', RecipeController.create) 
+routes.get('/:id', RecipeController.show) 
+routes.get('/:id/edit', user.verifyEditCredentials, RecipeController.edit)
 
-routes.post('/', FieldsValidator.isFilled, multer.array("images", 5), RecipeController.post); // Cadastrar nova receita
-routes.put('/', FieldsValidator.isFilled, multer.array("images", 5), RecipeController.put); // Editar uma receita
-routes.delete('/', RecipeController.delete); // Deletar uma receita
+routes.post('/', FieldsValidator.isFilled, multer.array("images", 5), RecipeController.post)
+routes.put('/', FieldsValidator.isFilled, multer.array("images", 5), RecipeController.put)
+routes.delete('/', RecipeController.delete)
 
 module.exports = routes

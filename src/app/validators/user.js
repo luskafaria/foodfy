@@ -32,7 +32,7 @@ async function putPasswordMatch(req, res, next) {
     }
 
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -49,12 +49,32 @@ async function isItMeIsAdminVerification(req, res, next) {
       req.session.isAdmin == true ? next() :
       itsNotUser()
   } catch (err) {
-    console.log(err)
+    console.error(err)
+  }
+}
+
+async function emailVerification(req, res, next) {
+  const {
+    email,
+  } = req.body
+
+  const user = await User.findOne({
+    where: {
+      email
+    }
+  })
+
+  if (user) {
+    req.session.error = 'Este endereço de e-mail já está sendo utilizado por outro usuário.'
+    req.session.user = user
+    return res.redirect('/admin/users/create')
   }
 
+  next()
 }
 
 module.exports = {
   isItMeIsAdminVerification,
-  putPasswordMatch
+  putPasswordMatch,
+  emailVerification
 }

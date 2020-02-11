@@ -8,7 +8,7 @@ module.exports = {
 
   async listAll(req, res) {
 
-    let recipesList = await helper.createRecipesList();    
+    let recipesList = await helper.createRecipesList()    
 
     return res.render("admin/recipes/list.njk", {
       recipes: recipesList,
@@ -16,7 +16,7 @@ module.exports = {
   },
   async listMyRecipes(req, res) {
 
-    let recipesList = await helper.createRecipesList();
+    let recipesList = await helper.createRecipesList()
 
     recipesList = recipesList.filter(recipe => recipe.user_id == req.session.userId)
 
@@ -30,7 +30,7 @@ module.exports = {
 
     res.render('admin/recipes/create', {
       chefsList
-    });
+    })
   },
   async post(req, res) {
 
@@ -54,7 +54,7 @@ module.exports = {
       information: req.body.information
     }
 
-    const recipeId = await Recipe.create(recipe);
+    const recipeId = await Recipe.create(recipe)
 
     File.init({
       table: 'recipe_files'
@@ -67,7 +67,7 @@ module.exports = {
 
     await Promise.all(relationPromise)
 
-    return res.redirect(`/admin/recipes/${recipeId}/edit`);
+    return res.redirect(`/admin/recipes/${recipeId}/edit`)
   },
   async show(req, res) {
     try {
@@ -80,18 +80,18 @@ module.exports = {
 
       const recipeId = req.params.id
 
-      let recipe = await Recipe.findOne(recipeId);
+      let recipe = await Recipe.findOne(recipeId)
 
-      if (!recipe) return res.send('Recipe not found!');
+      if (!recipe) return res.send('Recipe not found!')
 
-      recipe.ingredients = recipe.ingredients.split(',');
+      recipe.ingredients = recipe.ingredients.split(',')
       recipe.ingredients = recipe.ingredients.filter(function (item) {
-        return item !== '';
-      });
-      recipe.preparation = recipe.preparation.split(',');
+        return item !== ''
+      })
+      recipe.preparation = recipe.preparation.split(',')
       recipe.preparation = recipe.preparation.filter(function (item) {
-        return item !== '';
-      });
+        return item !== ''
+      })
 
       let files = await Recipe.files(recipeId)
 
@@ -114,7 +114,7 @@ module.exports = {
     try {
       let recipe = await Recipe.findOne(req.params.id)
 
-      if (!recipe) return res.send('Recipe not found!');
+      if (!recipe) return res.send('Recipe not found!')
 
       recipe.ingredients = recipe.ingredients.split(',').filter(function (item) {
         return item != ''
@@ -135,9 +135,9 @@ module.exports = {
       res.render('admin/recipes/edit', {
         recipe,
         chefsList
-      });
+      })
     } catch (err) {
-      console.log(err);
+      console.error(err)
 
     }
   },
@@ -148,7 +148,6 @@ module.exports = {
         id
       } = req.body
 
-      // envio dos novos arquivos
       if (req.files.length != 0) {
         File.init({
           table: 'files'
@@ -171,12 +170,10 @@ module.exports = {
         await Promise.all(relationPromise)
       }
 
-      //remover fotos
       if (req.body.removed_files) {
-        // 1,2,3,
-        const removedFiles = req.body.removed_files.split(",") // [1,2,3,]
+        const removedFiles = req.body.removed_files.split(",") 
         const lastIndex = removedFiles.length - 1
-        removedFiles.splice(lastIndex, 1) // [1,2,3]
+        removedFiles.splice(lastIndex, 1) 
 
         const removedFilesPromise = removedFiles.map(id => File.delete(id))
 
@@ -198,7 +195,7 @@ module.exports = {
 
       return res.redirect(`/admin/recipes/${req.body.id}`)
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
   },
   async delete(req, res) {
@@ -208,7 +205,7 @@ module.exports = {
 
       return res.redirect('/admin/recipes')
     } catch (err) {
-      console.error(err);
+      console.error(err)
 
     }
   }

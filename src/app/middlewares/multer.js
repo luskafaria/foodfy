@@ -1,4 +1,4 @@
-const multer = require('multer');
+const multer = require('multer')
 
 const storage = multer.diskStorage({
   
@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now().toString()}-${file.originalname}`)
 
   }
-});
+})
 
 const fileFilter = (req, file, cb) => {
 
@@ -19,11 +19,11 @@ const fileFilter = (req, file, cb) => {
 
   if (isAccepted) {
     
-    return cb(null, true);
+    return cb(null, true)
   }
   
   return cb(null, false)
-};
+}
 
 module.exports = multer({
   storage,

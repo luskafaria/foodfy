@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const db = require('../config/db')
 const fs = require('fs')
 
 const Base = require('./Base')
@@ -30,7 +30,6 @@ module.exports = {
   async delete(id) {
     try {
 
-      //pegar todas as receitas
       const recipesResults = await db.query(
         `
       SELECT recipes.*, recipe_id, file_id
@@ -41,7 +40,6 @@ module.exports = {
       )
       const recipes = recipesResults.rows
 
-      // pegar todos os arquivos
       let files = await Promise.all(recipes.map(async recipe => {
 
         const results = await db.query(
@@ -54,12 +52,10 @@ module.exports = {
         return results.rows[0]
       }))
 
-      // deletar todos os arquivos
       files.map(async file => {
         fs.unlinkSync(`public/${file.path}`)
       })
 
-      //deletar o usuário
       await db.query(`
       DELETE FROM users
       WHERE id = $1
@@ -67,7 +63,7 @@ module.exports = {
 
       return
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 }

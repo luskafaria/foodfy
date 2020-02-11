@@ -1,4 +1,4 @@
-const db = require('../../app/config/db');
+const db = require('../../app/config/db')
 const fs = require('fs')
 
 const Base = require('./Base')
@@ -15,13 +15,13 @@ module.exports = {
     SELECT recipes.*, chefs.name AS author
     FROM recipes
     LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-    ORDER BY created_at DESC
+    ORDER BY updated_at DESC
     `
       const results = await db.query(query)
 
       return results.rows
     } catch (err) {
-      console.log(err);
+      console.error(err)
 
     }
   },
@@ -33,11 +33,11 @@ module.exports = {
         FROM recipes
         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
         WHERE recipes.id=$1
-      `, [id]);
+      `, [id])
 
       return results.rows[0]
     } catch (err) {
-      console.log(err);
+      console.error(err)
 
     }
   },
@@ -53,13 +53,12 @@ module.exports = {
       )
       return results.rows
     } catch (err) {
-      console.log(err);
+      console.error(err)
 
     }
   },
   async delete(id) {
     try {
-      // pegar todos os arquivos
       const results = await db.query(
         `
         SELECT files.*, recipe_id, file_id
@@ -70,14 +69,12 @@ module.exports = {
       )
       const files = results.rows
 
-      //deletar a receita
       await db.query(
         `
         DELETE FROM recipes
         WHERE id = $1
         `, [id])
 
-      // deletar todos os arquivos
       files.map(async file => {
         fs.unlinkSync(`public/${file.path}`)
         await db.query(
@@ -89,7 +86,7 @@ module.exports = {
 
       return
     } catch (err) {
-      console.log(err);
+      console.error(err)
 
     }
   },
@@ -106,7 +103,7 @@ module.exports = {
 
       return results.rows
     } catch (err) {
-      console.log(err);
+      console.error(err)
 
     }
   },
@@ -128,8 +125,8 @@ module.exports = {
 
       return results.rows
     } catch (err) {
-      console.log(err);
+      console.error(err)
 
     }
   },
-};
+}

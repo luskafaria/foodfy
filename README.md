@@ -30,7 +30,7 @@ Este projeto é uma representação teórica de um sistema de gerenciamento de s
 - NodeJS v13.2.0
 - PostgreSQL
 - Nunjucks
-- Editor de texto da sua preferência
+- Editor de texto de sua preferência
 
 ## Modo de preparo
 

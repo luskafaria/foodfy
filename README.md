@@ -40,7 +40,7 @@ Este projeto é uma representação teórica de um sistema de gerenciamento de s
 3) Com o banco de dados ativo, execute a rotina de população do banco de dados que está no arquivo seed.js;
 4) Adicione, caso ainda não exista, uma imagem de sua preferência à pasta public/images e utilize o nome 'placeholder.png'. Este arquivo será utilizado como imagem para todos os chefs e receitas da nossa apliação;
 
-**_Atenção ao excluir usuários e chefs pois estamos utilizando o mesmo placeholder para os avatares e imagens de receitas. Lembre-se de criar um novo arquivo com o nome 'placeholder.png' na pasta public/images sempre que excluir um chef ou receita._**
+**_Atenção ao excluir usuários e chefs, pois estamos utilizando o mesmo placeholder para os avatares e imagens de receitas. Lembre-se de criar um novo arquivo com o nome 'placeholder.png' na pasta public/images sempre que excluir um chef ou receita._**
 
 5) Execute a aplicação com o comando npm start.
 

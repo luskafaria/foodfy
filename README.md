@@ -55,7 +55,7 @@ Caso seu banco de dados já esteja populado e tenha a tabela foodfy criada, exec
 Crie novos chefs e receitas antes de testar as lógicas de remoção e edição, pois os elementos criados pelo seed.js compartilham o mesmo placeholder.
 
 
-Rende infinitas porções. :hearth:
+Rende infinitas porções. :purple_heart:
 
 ## Licença
 

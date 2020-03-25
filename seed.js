@@ -74,8 +74,8 @@ async function createRecipes() {
       chef_id: Math.ceil(Math.random() * 3),
       user_id: usersIds[Math.floor(Math.random() * totalUsers)],
       title: faker.name.title(),
-      ingredients: faker.lorem.paragraph(Math.ceil(Math.random() * 1)).split(" "),
-      preparation: faker.lorem.paragraph(Math.ceil(Math.random() * 1)).split(" "),
+      ingredients: faker.lorem.paragraph(Math.ceil(Math.random() * 1)).split(". "),
+      preparation: faker.lorem.paragraph(Math.ceil(Math.random() * 1)).split(". "),
       information: faker.lorem.paragraph(Math.ceil(Math.random() * 5))
     })
 
